@@ -3,8 +3,9 @@ import Header from "./components/header/Header";
 import Main from "./routes/Main";
 import Login from "./routes/Login";
 import SignUp from "./routes/SignUp";
-import Mypage from "./routes/Mypage";
+import MyPage from "./routes/MyPage";
 import NotFound from "./routes/NotFound";
+import Result from "./routes/Result";
 
 function App() {
     return (
@@ -15,7 +16,8 @@ function App() {
                     <Route path="/" element={<Main />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/members/:id" element={<Mypage />} />
+                    <Route path="/members/:id" element={<MyPage />} />
+                    <Route path="/signup/result" element={<Result />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
