@@ -149,21 +149,22 @@ function SignUp() {
         if (checkEmail && checkNickname && data) {
             //서버 통신 후 메인 페이지 이동
             console.log(data);
-            Axios.post(
-                "https://c74b679a-8b42-47bf-9173-af384c84aa94.mock.pstmn.io/signup",
-                {
-                    email: data.email,
-                    emailChecked: data.emailAvailable,
-                    password: data.password,
-                    confirmPassword: data.passwordConfirm,
-                    nickName: data.nickname,
-                    nickNameChecked: data.nicknameAvaliable,
-                    name: data.realname,
-                    age: data.age,
-                }
-            ).then((res) => {
-                console.log(res);
-            });
+            Axios.post(`${process.env.REACT_APP_SERVER_URL}/signup`, {
+                email: data.email,
+                emailChecked: data.emailAvailable,
+                password: data.password,
+                confirmPassword: data.passwordConfirm,
+                nickName: data.nickname,
+                nickNameChecked: data.nicknameAvaliable,
+                name: data.realname,
+                age: data.age,
+            })
+                .then((res) => {
+                    alert(
+                        `age:${res.data.data.age}, email:${res.data.data.email}, name:${res.data.data.name}, nickName:${res.data.data.nickName},message:${res.data.message}, status:${res.data}`
+                    );
+                })
+                .then(() => navigate("/"));
         }
     };
 
@@ -183,8 +184,6 @@ function SignUp() {
         setCheckNickname(true);
         setValue("nicknameAvailable", "true");
     };
-
-    console.log(typeof getValues("emailAvailable"));
 
     return (
         <div>

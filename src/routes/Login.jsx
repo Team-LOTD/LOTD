@@ -13,24 +13,25 @@ function Login() {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        Axios.post("/login", {
+        console.log(data);
+
+        Axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, {
             email: data.email,
             password: data.password,
         })
             .then((res) => {
-                if (res.status === 200) {
-                    let userId = res.data.id;
-                    let accessToken = res.headers["authorization"];
-                    let refreshToken = res.headers["authorization-refresh"];
-
-                    console.log(userId);
-                    console.log("access token :", accessToken);
-                    console.log("refresh token : ", refreshToken);
-
-                    localStorage.setItem("id", userId);
-                    localStorage.setItem("access", accessToken);
-                    localStorage.setItem("refresh", refreshToken);
-                }
+                // if (res.status === 200) {
+                //     let userId = res.data.id;
+                //     let accessToken = res.headers["authorization"];
+                //     let refreshToken = res.headers["authorization-refresh"];
+                //     console.log(userId);
+                //     console.log("access token :", accessToken);
+                //     console.log("refresh token : ", refreshToken);
+                //     localStorage.setItem("id", userId);
+                //     localStorage.setItem("access", accessToken);
+                //     localStorage.setItem("refresh", refreshToken);
+                // }
+                console.log(res);
             })
             .then(() => {
                 navigate("/");
