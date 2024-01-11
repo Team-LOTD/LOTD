@@ -148,16 +148,21 @@ function SignUp() {
     const onSubmit = (data) => {
         if (checkEmail && checkNickname && data) {
             //서버 통신 후 메인 페이지 이동
-            Axios.post("/signup", {
-                email: data.email,
-                emailChecked: data.emailAvailable,
-                password: data.password,
-                confirmPassword: data.passwordConfirm,
-                nickname: data.nickname,
-                name: data.realname,
-                age: data.age,
-            }).then(() => {
-                navigate("/");
+            console.log(data);
+            Axios.post(
+                "https://c74b679a-8b42-47bf-9173-af384c84aa94.mock.pstmn.io/signup",
+                {
+                    email: data.email,
+                    emailChecked: data.emailAvailable,
+                    password: data.password,
+                    confirmPassword: data.passwordConfirm,
+                    nickName: data.nickname,
+                    nickNameChecked: data.nicknameAvaliable,
+                    name: data.realname,
+                    age: data.age,
+                }
+            ).then((res) => {
+                console.log(res);
             });
         }
     };
