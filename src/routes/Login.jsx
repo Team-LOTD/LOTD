@@ -19,12 +19,15 @@ function Login() {
         })
             .then((res) => {
                 if (res.status === 200) {
+                    let userId = res.data.id;
                     let accessToken = res.headers["authorization"];
                     let refreshToken = res.headers["authorization-refresh"];
 
+                    console.log(userId);
                     console.log("access token :", accessToken);
                     console.log("refresh token : ", refreshToken);
 
+                    localStorage.setItem("id", userId);
                     localStorage.setItem("access", accessToken);
                     localStorage.setItem("refresh", refreshToken);
                 }
