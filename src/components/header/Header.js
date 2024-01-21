@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const Container = styled.div`
+    width: 100%;
+    height: 56px;
+    background-color: silver;
+`;
 
 function Header() {
     const [userId, setUserId] = useState("");
@@ -9,11 +16,11 @@ function Header() {
     }, []);
 
     return (
-        <div>
+        <Container>
             <Link to={"/login"}>로그인</Link>
             <button>로그아웃</button>
             <Link to={`/members/${userId}`}>마이페이지</Link>
-        </div>
+        </Container>
     );
 }
 
