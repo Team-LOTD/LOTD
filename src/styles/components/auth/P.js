@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const P = styled.p`
+const StyledP = styled.p`
     width: 100px;
     height: 17px;
     font-family: Pretendard;
@@ -12,3 +12,7 @@ export const P = styled.p`
     color: #797979;
     margin-bottom: 8px;
 `;
+
+export const P = (props) => {
+    return <StyledP className={props.className}>{props.children}</StyledP>;
+};

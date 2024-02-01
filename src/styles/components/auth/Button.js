@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+const StyledButton = styled.button`
     width: 100px;
     height: 48px;
     padding: 13px 20px;
@@ -15,3 +15,11 @@ export const Button = styled.button`
     text-align: left;
     color: #ffffff;
 `;
+
+export const Button = (props) => {
+    return (
+        <StyledButton className={props.className}>
+            {props.children}
+        </StyledButton>
+    );
+};

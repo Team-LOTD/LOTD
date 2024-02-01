@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Title = styled.p`
+const StyledTitle = styled.p`
     width: 97px;
     height: 33px;
     font-family: Pretendard;
@@ -12,3 +12,9 @@ export const Title = styled.p`
     color: #222222;
     margin-bottom: 40px;
 `;
+
+export const Title = (props) => {
+    return (
+        <StyledTitle className={props.className}>{props.children}</StyledTitle>
+    );
+};

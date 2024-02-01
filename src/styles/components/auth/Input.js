@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Input = styled.input`
+const StyledInput = styled.input`
     width: 290px;
     height: 48px;
     padding: 13px 20px;
@@ -21,3 +21,9 @@ export const Input = styled.input`
         appearance: none;
     }
 `;
+
+export const Input = (props) => {
+    return (
+        <StyledInput className={props.className}>{props.children}</StyledInput>
+    );
+};

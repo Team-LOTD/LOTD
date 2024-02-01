@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Hint = styled.p`
+const StyledHint = styled.p`
     width: 394px;
     height: 14px;
     font-family: Pretendard;
@@ -11,3 +11,9 @@ export const Hint = styled.p`
     text-align: left;
     color: #797979;
 `;
+
+export const Hint = (props) => {
+    return (
+        <StyledHint className={props.className}>{props.children}</StyledHint>
+    );
+};

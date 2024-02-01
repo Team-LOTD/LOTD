@@ -2,55 +2,15 @@ import { useForm, useWatch } from "react-hook-form";
 
 import styled from "styled-components";
 
-import { Wrapper } from "../../styles/components/auth/Wrapper";
-import { Form } from "../../styles/components/auth/Form";
-import { Title } from "../../styles/components/auth/Title";
-import { Fieldset } from "../../styles/components/auth/Fieldset";
-import { Input } from "../../styles/components/auth/Input";
-import { Button } from "../../styles/components/auth/Button";
-import { ErrorMessage } from "../../styles/components/auth/ErrorMessage";
-import { Hint } from "../../styles/components/auth/Hint";
-import { P } from "../../styles/components/auth/P";
-
-const SignUpWrapper = (props) => {
-    return <Wrapper className={props.className}>{props.children}</Wrapper>;
-};
-
-const SignUpForm = (props) => {
-    return <Form className={props.className}>{props.children}</Form>;
-};
-
-const SignUpTitle = (props) => {
-    return <Title className={props.className}>{props.children}</Title>;
-};
-
-const SignUpFieldset = (props) => {
-    return <Fieldset className={props.className}>{props.children}</Fieldset>;
-};
-
-const SignUpP = (props) => {
-    return <P className={props.className}>{props.children}</P>;
-};
-
-const SignUpInput = (props) => {
-    return <Input className={props.className} />;
-};
-
-const SignUpButton = (props) => {
-    return <Button className={props.className}>{props.children}</Button>;
-};
-
-const SignUpErrorMessage = (props) => {
-    return (
-        <ErrorMessage className={props.className}>
-            {props.children}
-        </ErrorMessage>
-    );
-};
-
-const SignUpHint = (props) => {
-    return <Hint className={props.className}>{props.children}</Hint>;
-};
+import { Wrapper as SignUpWrapper } from "../../styles/components/auth/Wrapper";
+import { Form as SignUpForm } from "../../styles/components/auth/Form";
+import { Title as SignUpTitle } from "../../styles/components/auth/Title";
+import { Fieldset as SignUpFieldset } from "../../styles/components/auth/Fieldset";
+import { Input as SignUpInput } from "../../styles/components/auth/Input";
+import { Button as SignUpButton } from "../../styles/components/auth/Button";
+import { ErrorMessage as SignUpErrorMessage } from "../../styles/components/auth/ErrorMessage";
+import { Hint as SignUpHint } from "../../styles/components/auth/Hint";
+import { P as SignUpP } from "../../styles/components/auth/P";
 
 const EmailFieldset = styled(SignUpFieldset)`
     height: 95px;
