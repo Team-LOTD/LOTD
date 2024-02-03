@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledWrapper = styled.div`
     width: 400px;
-    height: 767px;
     margin: 60px auto 197px auto;
 `;
 

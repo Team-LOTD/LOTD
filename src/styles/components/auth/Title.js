@@ -10,7 +10,7 @@ const StyledTitle = styled.p`
     letter-spacing: 0em;
     text-align: left;
     color: #222222;
-    margin-bottom: 40px;
+    margin: 0px auto 40px auto;
 `;
 
 export const Title = (props) => {

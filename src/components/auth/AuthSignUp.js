@@ -13,15 +13,15 @@ import { Hint as SignUpHint } from "../../styles/components/auth/Hint";
 import { P as SignUpP } from "../../styles/components/auth/P";
 
 const EmailFieldset = styled(SignUpFieldset)`
-    height: 95px;
+    /* height: 95px; */
 `;
 
 const PasswordFieldset = styled(SignUpFieldset)`
-    height: 151px;
+    /* height: 151px; */
 `;
 
 const NickNameFieldset = styled(SignUpFieldset)`
-    height: 73px;
+    /* height: 73px; */
 `;
 
 const AgeFieldset = styled(SignUpFieldset)`
@@ -44,6 +44,25 @@ const SubmitButton = styled(SignUpButton)`
     width: 400px;
     padding: 13px, 175px;
     margin: 0;
+    text-align: center;
+`;
+
+const SignUpSpan = styled.span`
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #cacaca;
+`;
+
+const PasswordErrorMessage = styled(SignUpErrorMessage)`
+    margin-bottom: 8px;
+`;
+
+const PasswordConfirmErrorMessage = styled(SignUpErrorMessage)`
+    margin-bottom: 8px;
 `;
 
 const AuthSignUp = () => {
@@ -63,13 +82,13 @@ const AuthSignUp = () => {
                     <PasswordFieldset>
                         <SignUpP>비밀번호</SignUpP>
                         <PasswordInput placeholder="비밀번호를 입력해주세요" />
-                        {/* <SignUpErrorMessage>
+                        <PasswordErrorMessage>
                             올바르지 않은 비밀번호 형식입니다.
-                        </SignUpErrorMessage> */}
+                        </PasswordErrorMessage>
                         <PasswordConfirmInput placeholder="비밀번호를 다시 입력해주세요" />
-                        <SignUpErrorMessage>
+                        <PasswordConfirmErrorMessage>
                             비밀번호가 일치하지 않습니다.
-                        </SignUpErrorMessage>
+                        </PasswordConfirmErrorMessage>
                         <SignUpHint>
                             영문 대소문자, 특수문자, 숫자 중 3가지 이상으로
                             조합하여 8~20자로 입력해주세요.
@@ -84,7 +103,9 @@ const AuthSignUp = () => {
                         </SignUpErrorMessage>
                     </NickNameFieldset>
                     <AgeFieldset>
-                        <SignUpP>나이</SignUpP>
+                        <SignUpP>
+                            나이<SignUpSpan> (선택)</SignUpSpan>
+                        </SignUpP>
                         <AgeInput placeholder="나이를 입력해주세요" />
                     </AgeFieldset>
                     <SubmitButton>가입하기</SubmitButton>

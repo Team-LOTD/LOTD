@@ -7,8 +7,8 @@ const StyledInput = styled.input`
     border-radius: 4px;
     gap: 10px;
     margin-bottom: 8px;
-    background: #b5b5b5;
-    border: 1px solid #b5b5b5;
+    background: #d9d9d9;
+    border: 1px solid #d9d9d9;
     font-family: Pretendard;
     font-size: 16px;
     font-weight: 500;

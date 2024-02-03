@@ -14,6 +14,7 @@ const StyledButton = styled.button`
     letter-spacing: 0em;
     text-align: left;
     color: #ffffff;
+    cursor: pointer;
 `;
 
 export const Button = (props) => {
