@@ -6,9 +6,7 @@ const StyledInput = styled.input`
     padding: 13px 20px;
     border-radius: 4px;
     gap: 10px;
-    margin-bottom: 8px;
-    background: #d9d9d9;
-    border: 1px solid #d9d9d9;
+    border: 1px solid ${(props) => (props.invalid ? "#FF5A5A" : "#d9d9d9")};
     font-family: Pretendard;
     font-size: 16px;
     font-weight: 500;
@@ -24,6 +22,12 @@ const StyledInput = styled.input`
 
 export const Input = (props) => {
     return (
-        <StyledInput className={props.className}>{props.children}</StyledInput>
+        <StyledInput
+            className={props.className}
+            type={props.type}
+            invalid={props.invalid}
+        >
+            {props.children}
+        </StyledInput>
     );
 };

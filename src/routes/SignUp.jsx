@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import "../css/SignUp.css";
 
 import AuthSignUp from "../components/auth/AuthSignUp";
 

@@ -9,6 +9,7 @@ const StyledErrorMessage = styled.p`
     letter-spacing: 0em;
     text-align: left;
     color: #ff5a5a;
+    margin-top: 8px;
 `;
 
 export const ErrorMessage = (props) => {
