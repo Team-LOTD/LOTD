@@ -10,7 +10,7 @@ const StyledSocialBox = styled.div`
 
 export const SocialBox = (props) => {
     return (
-        <StyledSocialBox className={props.className}>
+        <StyledSocialBox className={props.className} onClick={props.onClick}>
             {props.children}
         </StyledSocialBox>
     );

@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
-import Main from "./routes/Main";
-import Login from "./routes/Login";
-import SignUp from "./routes/SignUp";
-import MyPage from "./routes/MyPage";
-import UpdateUser from "./routes/UpdateUser";
-import NotFound from "./routes/NotFound";
-import Result from "./routes/Result";
+import Main from "./routes/pages/Main";
+import Login from "./routes/pages/Login";
+import SignUp from "./routes/pages/SignUp";
+import MyPage from "./routes/pages/MyPage";
+import UpdateUser from "./routes/pages/UpdateUser";
+import NotFound from "./routes/pages/NotFound";
+import Result from "./routes/pages/Result";
+import KakaoRedirect from "./routes/auth/KakaoRedirect";
+import NaverRedirect from "./routes/auth/NaverRedirect";
+import GoogleRedirect from "./routes/auth/GoogleRedirect";
 
 function App() {
     return (
@@ -17,6 +20,9 @@ function App() {
                     <Route path="/" element={<Main />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/auth/kakao" element={<KakaoRedirect />} />
+                    <Route path="/auth/naver" element={<NaverRedirect />} />
+                    <Route path="/auth/google" element={<GoogleRedirect />} />
                     <Route path="/members/:id" element={<MyPage />} />
                     <Route
                         path="/members/:id/update"

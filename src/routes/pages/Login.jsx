@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
-import AuthLogin from "../components/auth/AuthLogin";
+import AuthLogin from "../../components/auth/AuthLogin";
 
 function Login() {
     // const {

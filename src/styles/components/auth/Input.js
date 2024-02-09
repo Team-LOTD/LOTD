@@ -25,6 +25,7 @@ export const Input = (props) => {
         <StyledInput
             className={props.className}
             type={props.type}
+            placeholder={props.placeholder}
             invalid={props.invalid}
         >
             {props.children}

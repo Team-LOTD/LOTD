@@ -1,4 +1,5 @@
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 import styled from "styled-components";
 
@@ -11,11 +12,17 @@ import { Button as SignUpButton } from "../../styles/components/auth/Button";
 import { ErrorMessage as SignUpErrorMessage } from "../../styles/components/auth/ErrorMessage";
 import { Hint as SignUpHint } from "../../styles/components/auth/Hint";
 import { P as SignUpP } from "../../styles/components/auth/P";
+import { SubSpan as SignUpSubSpan } from "../../styles/components/auth/SubSpan";
 import { Border as SignUpBorder } from "../../styles/components/auth/Border";
 import { WrapperSocial as SignUpWrapperSocial } from "../../styles/components/auth/WrapperSocial";
 import { SocialBox as SignUpSocialBox } from "../../styles/components/auth/SocialBox";
 import { SocialImg as SignUpSocialImg } from "../../styles/components/auth/SocialImg";
 import { SocialText as SignUpSocialText } from "../../styles/components/auth/SocialText";
+import {
+    GoogleLogin,
+    KakaoLogin,
+    NaverLogin,
+} from "../../containers/authSocial";
 
 const PasswordInput = styled(SignUpInput)`
     width: 400px;
@@ -30,21 +37,15 @@ const AgeInput = styled(SignUpInput)`
     margin-bottom: 0px;
 `;
 
+const EmailInput = styled(SignUpInput)`
+    width: 400px;
+`;
+
 const SubmitButton = styled(SignUpButton)`
     width: 400px;
     padding: 13px, 175px;
     margin: 0;
     text-align: center;
-`;
-
-const SignUpSpan = styled.span`
-    font-family: Pretendard;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 17px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #cacaca;
 `;
 
 const PasswordErrorMessage = styled(SignUpErrorMessage)`
@@ -62,11 +63,11 @@ const AuthSignUp = () => {
                 <SignUpForm>
                     <SignUpTitle>회원가입</SignUpTitle>
                     <SignUpFieldset>
-                        <SignUpP>이메일</SignUpP>
-                        <SignUpInput placeholder="이메일을 입력해주세요" />
+                        <SignUpP>아이디</SignUpP>
+                        <SignUpInput placeholder="아이디를 입력해주세요" />
                         <SignUpButton>중복 확인</SignUpButton>
                         <SignUpErrorMessage>
-                            이미 가입된 이메일입니다.
+                            이미 가입된 아이디입니다.
                         </SignUpErrorMessage>
                     </SignUpFieldset>
                     <SignUpFieldset>
@@ -94,7 +95,13 @@ const AuthSignUp = () => {
                     </SignUpFieldset>
                     <SignUpFieldset>
                         <SignUpP>
-                            나이<SignUpSpan>&nbsp;(선택)</SignUpSpan>
+                            이메일<SignUpSubSpan>&nbsp;(선택)</SignUpSubSpan>
+                        </SignUpP>
+                        <EmailInput placeholder="이메일을 입력해주세요" />
+                    </SignUpFieldset>
+                    <SignUpFieldset>
+                        <SignUpP>
+                            나이<SignUpSubSpan>&nbsp;(선택)</SignUpSubSpan>
                         </SignUpP>
                         <AgeInput placeholder="나이를 입력해주세요" />
                     </SignUpFieldset>
@@ -102,7 +109,7 @@ const AuthSignUp = () => {
                 </SignUpForm>
                 <SignUpBorder />
                 <SignUpWrapperSocial>
-                    <SignUpSocialBox>
+                    <SignUpSocialBox onClick={KakaoLogin}>
                         <SignUpSocialImg
                             src={
                                 process.env.PUBLIC_URL + "/images/kakaotalk.png"
@@ -111,14 +118,14 @@ const AuthSignUp = () => {
                         />
                         <SignUpSocialText>카카오 회원가입</SignUpSocialText>
                     </SignUpSocialBox>
-                    <SignUpSocialBox>
+                    <SignUpSocialBox onClick={NaverLogin}>
                         <SignUpSocialImg
                             src={process.env.PUBLIC_URL + "/images/naver.png"}
                             alt="NaverLogo"
                         />
                         <SignUpSocialText>네이버 회원가입</SignUpSocialText>
                     </SignUpSocialBox>
-                    <SignUpSocialBox>
+                    <SignUpSocialBox onClick={GoogleLogin}>
                         <SignUpSocialImg
                             src={process.env.PUBLIC_URL + "/images/google.png"}
                             alt="GoogleLogo"

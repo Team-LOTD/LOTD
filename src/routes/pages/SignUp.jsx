@@ -3,7 +3,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
-import AuthSignUp from "../components/auth/AuthSignUp";
+import AuthSignUp from "../../components/auth/AuthSignUp";
 
 // function Validator({ control, name, validatePasswordConfirm }) {
 //     const inputData = useWatch({

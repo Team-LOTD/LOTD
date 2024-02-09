@@ -1,4 +1,5 @@
 const validationPatterns = {
+    // memberIdRegex:
     passwordRegex:
         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-])[a-zA-Z\d!@#$%^&*()_+{}[\]:;<>,.?~\\/-]{8,20}$/,
     nicknameRegex: /^[a-zA-Z0-9가-힣]{2,16}$/,
