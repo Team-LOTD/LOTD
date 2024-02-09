@@ -7,7 +7,6 @@ const StyledSocialImg = styled.img`
 `;
 
 export const SocialImg = (props) => {
-    console.log(props);
     return (
         <StyledSocialImg
             className={props.className}

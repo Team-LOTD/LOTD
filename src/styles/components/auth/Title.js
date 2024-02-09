@@ -8,7 +8,7 @@ const StyledTitle = styled.p`
     font-weight: 700;
     line-height: 33px;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
     color: #222222;
     margin: 0px auto 40px auto;
 `;

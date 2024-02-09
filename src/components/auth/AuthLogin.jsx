@@ -18,6 +18,8 @@ import { SocialText as LoginSocialText } from "../../styles/components/auth/Soci
 import { MemberManagement as LoginMemberManagement } from "../../styles/components/auth/MemberManagement";
 import { ManagementText as LoginMemberManagementText } from "../../styles/components/auth/ManagementText";
 
+import { KakaoLogin } from "../../containers/authSocial";
+
 const EmailInput = styled(LoginInput)`
     width: 400px;
 `;
@@ -73,7 +75,7 @@ const AuthLogin = () => {
                 </LoginMemberManagement>
                 <LoginBorder />
                 <LoginWrapperSocial>
-                    <LoginSocialBox>
+                    <LoginSocialBox onClick={KakaoLogin}>
                         <LoginSocialImg
                             src={
                                 process.env.PUBLIC_URL + "/images/kakaotalk.png"
