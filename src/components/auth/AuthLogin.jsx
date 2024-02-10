@@ -4,41 +4,19 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Wrapper as LoginWrapper } from "../../styles/components/auth/Wrapper";
-import { Form as LoginForm } from "../../styles/components/auth/Form";
-import { Title as LoginTitle } from "../../styles/components/auth/Title";
-import { Fieldset as LoginFieldset } from "../../styles/components/auth/Fieldset";
-import { P as LoginP } from "../../styles/components/auth/P";
-import { Input as LoginInput } from "../../styles/components/auth/Input";
-import { ErrorMessage as LoginErrorMessage } from "../../styles/components/auth/ErrorMessage";
-import { Button as LoginButton } from "../../styles/components/auth/Button";
 import { Border as LoginBorder } from "../../styles/components/auth/Border";
 import { WrapperSocial as LoginWrapperSocial } from "../../styles/components/auth/WrapperSocial";
-import { SocialBox as LoginSocialBox } from "../../styles/components/auth/SocialBox";
-import { SocialImg as LoginSocialImg } from "../../styles/components/auth/SocialImg";
 import { SocialText as LoginSocialText } from "../../styles/components/auth/SocialText";
 import { MemberManagement as LoginMemberManagement } from "../../styles/components/auth/MemberManagement";
 import { ManagementText as LoginMemberManagementText } from "../../styles/components/auth/ManagementText";
 
+import AuthLoginForm from "../../containers/auth/AuthLoginForm";
+
 import {
-    KakaoLogin,
-    NaverLogin,
-    GoogleLogin,
-} from "../../containers/authSocial";
-
-const EmailInput = styled(LoginInput)`
-    width: 400px;
-`;
-
-const PasswordInput = styled(LoginInput)`
-    width: 400px;
-`;
-
-const LoginSubmit = styled(LoginButton)`
-    width: 400px;
-    padding: 13px, 175px;
-    margin: 0;
-    text-align: center;
-`;
+    SocialLoginGoogle,
+    SocialLoginKakao,
+    SocialLoginNaver,
+} from "../../containers/auth/AuthSocial";
 
 const BorderLine = styled.hr`
     width: 10px;
@@ -50,21 +28,7 @@ const AuthLogin = () => {
     return (
         <>
             <LoginWrapper>
-                <LoginForm>
-                    <LoginTitle>로그인</LoginTitle>
-                    <LoginFieldset>
-                        <LoginP>아이디</LoginP>
-                        <EmailInput type="text" />
-                    </LoginFieldset>
-                    <LoginFieldset>
-                        <LoginP>비밀번호</LoginP>
-                        <PasswordInput type="password" />
-                        <LoginErrorMessage>
-                            올바르지 않은 비밀번호 형식입니다.
-                        </LoginErrorMessage>
-                    </LoginFieldset>
-                    <LoginSubmit>로그인</LoginSubmit>
-                </LoginForm>
+                <AuthLoginForm />
                 <LoginMemberManagement>
                     <LoginMemberManagementText>
                         이메일 찾기
@@ -82,29 +46,15 @@ const AuthLogin = () => {
                 </LoginMemberManagement>
                 <LoginBorder />
                 <LoginWrapperSocial>
-                    <LoginSocialBox onClick={KakaoLogin}>
-                        <LoginSocialImg
-                            src={
-                                process.env.PUBLIC_URL + "/images/kakaotalk.png"
-                            }
-                            alt="KakaotalkLogo"
-                        />
+                    <SocialLoginKakao>
                         <LoginSocialText>카카오 로그인</LoginSocialText>
-                    </LoginSocialBox>
-                    <LoginSocialBox onClick={NaverLogin}>
-                        <LoginSocialImg
-                            src={process.env.PUBLIC_URL + "/images/naver.png"}
-                            alt="NaverLogo"
-                        />
+                    </SocialLoginKakao>
+                    <SocialLoginNaver>
                         <LoginSocialText>네이버 로그인</LoginSocialText>
-                    </LoginSocialBox>
-                    <LoginSocialBox onClick={GoogleLogin}>
-                        <LoginSocialImg
-                            src={process.env.PUBLIC_URL + "/images/google.png"}
-                            alt="GoogleLogo"
-                        />
+                    </SocialLoginNaver>
+                    <SocialLoginGoogle>
                         <LoginSocialText>구글 로그인</LoginSocialText>
-                    </LoginSocialBox>
+                    </SocialLoginGoogle>
                 </LoginWrapperSocial>
             </LoginWrapper>
         </>

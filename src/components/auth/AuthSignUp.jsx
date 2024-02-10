@@ -15,14 +15,13 @@ import { P as SignUpP } from "../../styles/components/auth/P";
 import { SubSpan as SignUpSubSpan } from "../../styles/components/auth/SubSpan";
 import { Border as SignUpBorder } from "../../styles/components/auth/Border";
 import { WrapperSocial as SignUpWrapperSocial } from "../../styles/components/auth/WrapperSocial";
-import { SocialBox as SignUpSocialBox } from "../../styles/components/auth/SocialBox";
-import { SocialImg as SignUpSocialImg } from "../../styles/components/auth/SocialImg";
 import { SocialText as SignUpSocialText } from "../../styles/components/auth/SocialText";
+
 import {
-    GoogleLogin,
-    KakaoLogin,
-    NaverLogin,
-} from "../../containers/authSocial";
+    SocialLoginKakao,
+    SocialLoginNaver,
+    SocialLoginGoogle,
+} from "../../containers/auth/AuthSocial";
 
 const PasswordInput = styled(SignUpInput)`
     width: 400px;
@@ -109,29 +108,15 @@ const AuthSignUp = () => {
                 </SignUpForm>
                 <SignUpBorder />
                 <SignUpWrapperSocial>
-                    <SignUpSocialBox onClick={KakaoLogin}>
-                        <SignUpSocialImg
-                            src={
-                                process.env.PUBLIC_URL + "/images/kakaotalk.png"
-                            }
-                            alt="KakaotalkLogo"
-                        />
+                    <SocialLoginKakao>
                         <SignUpSocialText>카카오 회원가입</SignUpSocialText>
-                    </SignUpSocialBox>
-                    <SignUpSocialBox onClick={NaverLogin}>
-                        <SignUpSocialImg
-                            src={process.env.PUBLIC_URL + "/images/naver.png"}
-                            alt="NaverLogo"
-                        />
+                    </SocialLoginKakao>
+                    <SocialLoginNaver>
                         <SignUpSocialText>네이버 회원가입</SignUpSocialText>
-                    </SignUpSocialBox>
-                    <SignUpSocialBox onClick={GoogleLogin}>
-                        <SignUpSocialImg
-                            src={process.env.PUBLIC_URL + "/images/google.png"}
-                            alt="GoogleLogo"
-                        />
+                    </SocialLoginNaver>
+                    <SocialLoginGoogle>
                         <SignUpSocialText>구글 회원가입</SignUpSocialText>
-                    </SignUpSocialBox>
+                    </SocialLoginGoogle>
                 </SignUpWrapperSocial>
             </SignUpWrapper>
         </>

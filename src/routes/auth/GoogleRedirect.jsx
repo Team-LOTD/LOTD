@@ -9,8 +9,6 @@ const GoogleRedirect = () => {
     const code = queryParams.get("code");
     const state = queryParams.get("state");
 
-    console.log(code, state);
-
     return;
 };
 

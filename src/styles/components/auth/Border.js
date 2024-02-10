@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledBorder = styled.p`
+const StyledBorder = styled.div`
     width: 400px;
     margin: 40px 0px;
     display: flex;
