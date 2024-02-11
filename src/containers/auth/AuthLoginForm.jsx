@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useForm, useWatch } from "react-hook-form";
 
 import { Form as LoginForm } from "../../styles/components/auth/Form";
 import { Title as LoginTitle } from "../../styles/components/auth/Title";
@@ -24,22 +25,45 @@ const LoginSubmit = styled(LoginButton)`
 `;
 
 const AuthLoginForm = () => {
+    const { register, handleSubmit, control, getValues, setValue } = useForm();
+
+    const handleLoginSubmit = (data) => {
+        console.log(data);
+    };
+
     return (
         <>
-            <LoginForm>
+            <LoginForm onSubmit={handleSubmit(handleLoginSubmit)}>
                 <LoginTitle>로그인</LoginTitle>
                 <LoginFieldset>
                     <LoginP>아이디</LoginP>
-                    <EmailInput type="text" />
+                    <EmailInput
+                        type="text"
+                        name="memberId"
+                        {...register("memberId", {
+                            required: true,
+                            minLength: {
+                                value: 4,
+                            },
+                            maxLength: {
+                                value: 15,
+                            },
+                        })}
+                        placeholder="아이디를 입력해주세요"
+                        authcomplete="on"
+                    />
                 </LoginFieldset>
                 <LoginFieldset>
                     <LoginP>비밀번호</LoginP>
-                    <PasswordInput type="password" />
+                    <PasswordInput
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요"
+                    />
                     <LoginErrorMessage>
                         올바르지 않은 비밀번호 형식입니다.
                     </LoginErrorMessage>
                 </LoginFieldset>
-                <LoginSubmit>로그인</LoginSubmit>
+                <LoginSubmit type="submit">로그인</LoginSubmit>
             </LoginForm>
         </>
     );

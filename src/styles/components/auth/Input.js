@@ -21,11 +21,14 @@ const StyledInput = styled.input`
 `;
 
 export const Input = (props) => {
+    console.log(props);
     return (
         <StyledInput
             className={props.className}
             type={props.type}
+            name={props.name}
             placeholder={props.placeholder}
+            authcomplete={props.authComplete}
             invalid={props.invalid}
         >
             {props.children}

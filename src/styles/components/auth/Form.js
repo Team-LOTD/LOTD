@@ -6,6 +6,8 @@ const StyledForm = styled.form`
 
 export const Form = (props) => {
     return (
-        <StyledForm className={props.className}>{props.children}</StyledForm>
+        <StyledForm className={props.className} onSubmit={props.onSubmit}>
+            {props.children}
+        </StyledForm>
     );
 };
