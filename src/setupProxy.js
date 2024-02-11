@@ -6,7 +6,7 @@ module.exports = (app) => {
             // ## local
             // target: "http://localhost:4000",
             // ## Backend
-            target: "ec2-13-125-64-198.ap-northeast-2.compute.amazonaws.com",
+            target: "http://ec2-13-125-64-198.ap-northeast-2.compute.amazonaws.com:3000",
             changeOrigin: true,
         })
     );
