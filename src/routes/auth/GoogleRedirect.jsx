@@ -9,6 +9,11 @@ const GoogleRedirect = () => {
     const code = queryParams.get("code");
     const state = queryParams.get("state");
 
+    Axios.post("/api/oauth/kakao/login", {
+        code: code,
+        state: state,
+    }).then((res) => console.log(res));
+
     return;
 };
 
