@@ -39,15 +39,10 @@ const AuthLoginForm = () => {
                     <LoginP>아이디</LoginP>
                     <EmailInput
                         type="text"
-                        name="memberId"
                         {...register("memberId", {
                             required: true,
-                            minLength: {
-                                value: 4,
-                            },
-                            maxLength: {
-                                value: 15,
-                            },
+                            minLength: 4,
+                            maxLength: 15,
                         })}
                         placeholder="아이디를 입력해주세요"
                         authcomplete="on"
@@ -57,7 +52,13 @@ const AuthLoginForm = () => {
                     <LoginP>비밀번호</LoginP>
                     <PasswordInput
                         type="password"
+                        {...register("password", {
+                            required: true,
+                            minLength: 8,
+                            maxLength: 20,
+                        })}
                         placeholder="비밀번호를 입력해주세요"
+                        autocomplete="on"
                     />
                     <LoginErrorMessage>
                         올바르지 않은 비밀번호 형식입니다.

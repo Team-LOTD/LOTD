@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 const StyledInput = styled.input`
     width: 290px;
@@ -20,13 +21,15 @@ const StyledInput = styled.input`
     }
 `;
 
-export const Input = (props) => {
-    console.log(props);
+export const Input = React.forwardRef((props, ref) => {
     return (
         <StyledInput
             className={props.className}
             type={props.type}
             name={props.name}
+            onBlur={props.onBlur}
+            onChange={props.onChange}
+            ref={ref}
             placeholder={props.placeholder}
             authcomplete={props.authComplete}
             invalid={props.invalid}
@@ -34,4 +37,4 @@ export const Input = (props) => {
             {props.children}
         </StyledInput>
     );
-};
+});

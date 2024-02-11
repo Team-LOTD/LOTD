@@ -1,4 +1,3 @@
-import { useForm, useWatch } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
