@@ -8,6 +8,7 @@ import { P as LoginP } from "../../styles/components/auth/P";
 import { Input as LoginInput } from "../../styles/components/auth/Input";
 import { Button as LoginButton } from "../../styles/components/auth/Button";
 import { ErrorMessage as LoginErrorMessage } from "../../styles/components/auth/ErrorMessage";
+import validationPatterns from "../../utils/validationPatterns";
 
 const EmailInput = styled(LoginInput)`
     width: 400px;
@@ -43,6 +44,9 @@ const AuthLoginForm = () => {
                             required: true,
                             minLength: 4,
                             maxLength: 15,
+                            pattern: {
+                                value: validationPatterns.memberIdRegex,
+                            },
                         })}
                         placeholder="아이디를 입력해주세요"
                         authcomplete="on"
@@ -56,6 +60,9 @@ const AuthLoginForm = () => {
                             required: true,
                             minLength: 8,
                             maxLength: 20,
+                            pattern: {
+                                value: validationPatterns.passwordRegex,
+                            },
                         })}
                         placeholder="비밀번호를 입력해주세요"
                         autocomplete="on"

@@ -8,13 +8,13 @@ const StyledErrorMessage = styled.p`
     line-height: 14px;
     letter-spacing: 0em;
     text-align: left;
-    color: #ff5a5a;
+    color: ${(props) => (props.invalid ? "blue" : "#FF5A5A")};
     margin-top: 8px;
 `;
 
 export const ErrorMessage = (props) => {
     return (
-        <StyledErrorMessage className={props.className}>
+        <StyledErrorMessage className={props.className} invalid={props.invalid}>
             {props.children}
         </StyledErrorMessage>
     );

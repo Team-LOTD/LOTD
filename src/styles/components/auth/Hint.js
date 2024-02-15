@@ -10,6 +10,7 @@ const StyledHint = styled.p`
     letter-spacing: 0em;
     text-align: left;
     color: #797979;
+    margin-top: 8px;
 `;
 
 export const Hint = (props) => {

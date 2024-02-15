@@ -23,7 +23,7 @@ function App() {
                     <Route path="/auth/kakao" element={<KakaoRedirect />} />
                     <Route path="/auth/naver" element={<NaverRedirect />} />
                     <Route path="/auth/google" element={<GoogleRedirect />} />
-                    <Route path="/members/:id" element={<MyPage />} />
+                    <Route path="/members/update/:id" element={<MyPage />} />
                     <Route
                         path="/members/:id/update"
                         element={<UpdateUser />}
