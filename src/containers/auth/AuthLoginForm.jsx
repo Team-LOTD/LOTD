@@ -10,6 +10,8 @@ import { Button as LoginButton } from "../../styles/components/auth/Button";
 import { ErrorMessage as LoginErrorMessage } from "../../styles/components/auth/ErrorMessage";
 import validationPatterns from "../../utils/validationPatterns";
 
+import { submitLogin } from "../../services/auth/login";
+
 const EmailInput = styled(LoginInput)`
     width: 400px;
 `;
@@ -28,8 +30,13 @@ const LoginSubmit = styled(LoginButton)`
 const AuthLoginForm = () => {
     const { register, handleSubmit, control, getValues, setValue } = useForm();
 
-    const handleLoginSubmit = (data) => {
-        console.log(data);
+    const handleLoginSubmit = async (data) => {
+        const submitData = {
+            memberId: data.memberId,
+            password: data.password,
+        };
+        const result = await submitLogin(submitData);
+        console.log(result);
     };
 
     return (

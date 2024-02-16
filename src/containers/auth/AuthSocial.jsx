@@ -1,7 +1,11 @@
 import { SocialBox } from "../../styles/components/auth/SocialBox";
 import { SocialImg } from "../../styles/components/auth/SocialImg";
 
-import { GoogleLogin, KakaoLogin, NaverLogin } from "../../services/social";
+import {
+    GoogleLogin,
+    KakaoLogin,
+    NaverLogin,
+} from "../../services/auth/social";
 
 export const SocialLoginKakao = (props) => {
     return (

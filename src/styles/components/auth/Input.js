@@ -34,6 +34,7 @@ export const Input = React.forwardRef((props, ref) => {
             authcomplete={props.authComplete}
             invalid={props.invalid}
             onFocus={props.onFocus}
+            value={props.value}
         >
             {props.children}
         </StyledInput>

@@ -14,7 +14,7 @@ import {
     submitSignUp,
     checkMemberId,
     checkNickname,
-} from "../../services/signUp";
+} from "../../services/auth/signUp";
 import { useEffect, useState } from "react";
 
 import validationPatterns from "../../utils/validationPatterns";
@@ -60,11 +60,13 @@ const AuthSignUpForm = () => {
         const submitData = {
             memberId: data.memberId,
             email: data.email,
-            memberIdChecked: JSON.parse(data.memberIdAvailable),
+            // memberIdChecked: true,
+            memberIdChecked: duplicateMemberId,
             password: data.password,
             confirmPassword: data.passwordConfirm,
             nickName: data.nickname,
-            nickNameChecked: JSON.parse(data.nicknameAvailable),
+            // nickNameChecked: true,
+            nickNameChecked: duplicateNickname,
             age: parseInt(data.age),
         };
         const result = await submitSignUp(submitData);
@@ -251,7 +253,7 @@ const AuthSignUpForm = () => {
                     <AgeInput
                         type="number"
                         {...register("age", {
-                            minLength: 2,
+                            minLength: 1,
                             pattern: { value: validationPatterns.ageRegex },
                         })}
                         placeholder="나이를 입력해주세요"
