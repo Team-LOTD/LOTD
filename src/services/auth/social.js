@@ -2,7 +2,7 @@ export const KakaoLogin = () => {
     const rest_api_key = process.env.REACT_APP_KAKAO_REST_API_KEY;
     const redirect_uri = process.env.REACT_APP_KAKAO_REDIRECT_URI;
     const state = process.env.REACT_APP_KAKAO_STATE;
-    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${rest_api_key}&redirect_uri=${redirect_uri}&response_type=code&state=${state}`;
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
     return (window.location.href = kakaoURL);
 };

@@ -20,10 +20,13 @@ function App() {
                     <Route path="/" element={<Main />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/auth/kakao" element={<KakaoRedirect />} />
+                    <Route
+                        path="/oauth/redirected/kakao"
+                        element={<KakaoRedirect />}
+                    />
                     <Route path="/auth/naver" element={<NaverRedirect />} />
                     <Route path="/auth/google" element={<GoogleRedirect />} />
-                    <Route path="/members/update/:id" element={<MyPage />} />
+                    <Route path="/members" element={<MyPage />} />
                     <Route
                         path="/members/:id/update"
                         element={<UpdateUser />}

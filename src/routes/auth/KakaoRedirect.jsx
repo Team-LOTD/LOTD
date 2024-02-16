@@ -8,14 +8,16 @@ const KakaoRedirect = () => {
     const queryParmas = new URLSearchParams(location.search);
 
     const code = queryParmas.get("code");
-    const state = queryParmas.get("state");
+    //    const state = queryParmas.get("state");
 
     useEffect(() => {
-        const sendKakaoAuthData = async () => {
+        async function AA() {
+            console.log("aa");
             try {
-                const response = await Axios.post("/api/login/kakao", {
-                    code: code,
-                    state: state,
+                const response = await Axios.get("/api/oauth/kakao/login", {
+                    params: {
+                        code: code,
+                    },
                 });
                 console.log(response.data);
                 return response.data;
@@ -23,9 +25,9 @@ const KakaoRedirect = () => {
                 console.log("Error sendKakaoAuthData response", error);
                 throw error;
             }
-        };
-        sendKakaoAuthData();
-    }, [code, state]);
+        }
+        AA();
+    }, []);
 };
 
 export default KakaoRedirect;
