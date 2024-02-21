@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledErrorMessage = styled.p`
+const StyledSuccessMessage = styled.p`
     height: 14px;
     font-family: Pretendard;
     font-size: 12px;
@@ -8,14 +8,14 @@ const StyledErrorMessage = styled.p`
     line-height: 14px;
     letter-spacing: 0em;
     text-align: left;
-    color: #ff5a5a;
+    color: #538eff;
     margin-top: 8px;
 `;
 
-export const ErrorMessage = (props) => {
+export const SuccessMessage = (props) => {
     return (
-        <StyledErrorMessage className={props.className}>
+        <StyledSuccessMessage className={props.className}>
             {props.children}
-        </StyledErrorMessage>
+        </StyledSuccessMessage>
     );
 };

@@ -1,22 +1,45 @@
 import Axios from "axios";
 
-export const searchUser = (memberId) => {
+const jwtToken = JSON.parse(localStorage.getItem("jwt"));
+
+export const searchUser = async () => {
     try {
-        const response = Axios.get("/api/members", {
+        const response = await Axios.get("/api/members", {
             headers: {
-                Authorization:
-                    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJpYXQiOjE3MDgwODI5NjMsImV4cCI6MTcwODA4NjU2MywibWVtYmVySWQiOiJhZHNmdyJ9.pmNJNa4FPshcnNeCg1rs7Wzgw1tEJSmT0FS_x7gYvGQ6RMl_drD-QuBs19S-DfJPCyapl7eZNGt_KuEo2rFPNw",
-                "Authorization-refresh":
-                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZSRVNIIiwiaWF0IjoxNzA0OTcyMDMwLCJleHAiOjE3MDYxODE2MzAsImVtYWlsIjoiamF5am95MDUxQG5hdmVyLmNvbSJ9.-E1PR3zxzGI2zQbURC-hAblgr-",
+                Authorization: `Bearer ${jwtToken.accessToken}`,
+                "Authorization-refresh": `${jwtToken.refreshToken}`,
             },
             params: {
-                id: memberId,
+                id: jwtToken.id,
             },
         });
         console.log(response);
         return response.data;
     } catch (error) {
         console.log("Error searchUser data", error);
+        throw error;
+    }
+};
+
+export const updateUserInfo = async (updateDetail) => {
+    try {
+        const response = await Axios.put(
+            `/api/members/${updateDetail}/update`,
+            {
+                data: {
+                    email: "asdf@naver.com",
+                },
+                headers: {
+                    Authorization: `Bearer ${jwtToken.accessToken}`,
+                    "Authorization-refresh": `${jwtToken.refreshToken}`,
+                },
+                params: {
+                    id: jwtToken.id,
+                },
+            }
+        );
+    } catch (error) {
+        console.log("Error updateUser data", error);
         throw error;
     }
 };

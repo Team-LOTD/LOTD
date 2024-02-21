@@ -11,6 +11,7 @@ import { ErrorMessage as LoginErrorMessage } from "../../styles/components/auth/
 import validationPatterns from "../../utils/validationPatterns";
 
 import { submitLogin } from "../../services/auth/login";
+import { useEffect, useState } from "react";
 
 const EmailInput = styled(LoginInput)`
     width: 400px;
@@ -28,7 +29,10 @@ const LoginSubmit = styled(LoginButton)`
 `;
 
 const AuthLoginForm = () => {
-    const { register, handleSubmit, control, getValues, setValue } = useForm();
+    const { register, handleSubmit, control } = useForm();
+
+    const [onFocusInput, setOnFocusInput] = useState("");
+    const [regexPassword, setRegexPassword] = useState(false);
 
     const handleLoginSubmit = async (data) => {
         const submitData = {
@@ -38,6 +42,19 @@ const AuthLoginForm = () => {
         const result = await submitLogin(submitData);
         console.log(result);
     };
+
+    const inputData = useWatch({
+        control,
+        name: onFocusInput,
+    });
+
+    useEffect(() => {
+        if (onFocusInput === "password") {
+            validationPatterns.passwordRegex.test(inputData)
+                ? setRegexPassword(true)
+                : setRegexPassword(false);
+        }
+    }, [inputData, onFocusInput]);
 
     return (
         <>
@@ -56,6 +73,7 @@ const AuthLoginForm = () => {
                             },
                         })}
                         placeholder="아이디를 입력해주세요"
+                        onFocus={(item) => setOnFocusInput(item.target.name)}
                         authcomplete="on"
                     />
                 </LoginFieldset>
@@ -72,11 +90,24 @@ const AuthLoginForm = () => {
                             },
                         })}
                         placeholder="비밀번호를 입력해주세요"
+                        onFocus={(item) => setOnFocusInput(item.target.name)}
                         autocomplete="on"
+                        style={{
+                            borderColor:
+                                onFocusInput === "password"
+                                    ? regexPassword
+                                        ? "#d9d9d9"
+                                        : "#ff5a5a"
+                                    : "#d9d9d9",
+                        }}
                     />
-                    <LoginErrorMessage>
-                        올바르지 않은 비밀번호 형식입니다.
-                    </LoginErrorMessage>
+                    {inputData && inputData !== "" ? (
+                        regexPassword ? null : (
+                            <LoginErrorMessage>
+                                올바르지 않은 비밀번호 형식입니다.
+                            </LoginErrorMessage>
+                        )
+                    ) : null}
                 </LoginFieldset>
                 <LoginSubmit type="submit">로그인</LoginSubmit>
             </LoginForm>

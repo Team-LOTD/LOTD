@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const GoogleRedirect = () => {
@@ -7,14 +8,26 @@ const GoogleRedirect = () => {
     const queryParams = new URLSearchParams(location.search);
 
     const code = queryParams.get("code");
-    const state = queryParams.get("state");
+    // const state = queryParams.get("state");
 
-    Axios.post("/api/oauth/kakao/login", {
-        code: code,
-        state: state,
-    }).then((res) => console.log(res));
-
-    return;
+    useEffect(() => {
+        async function SendGoogleAuthCode() {
+            console.log("aa");
+            try {
+                const response = await Axios.get("/api/oauth/google/login", {
+                    params: {
+                        code: code,
+                    },
+                });
+                console.log(response.data);
+                return response.data;
+            } catch (error) {
+                console.log("Error sendGoogleAuthCode response", error);
+                throw error;
+            }
+        }
+        SendGoogleAuthCode();
+    }, [code]);
 };
 
 export default GoogleRedirect;

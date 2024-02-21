@@ -7,7 +7,7 @@ const StyledInput = styled.input`
     padding: 13px 20px;
     border-radius: 4px;
     gap: 10px;
-    border: 1px solid ${(props) => (props.invalid ? "#FF5A5A" : "#d9d9d9")};
+    border: 1px solid #d9d9d9;
     font-family: Pretendard;
     font-size: 16px;
     font-weight: 500;
@@ -15,8 +15,11 @@ const StyledInput = styled.input`
     letter-spacing: 0em;
     text-align: left;
     color: #cacaca;
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
+    &::placeholder {
+        color: #d9d9d9;
+    }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
         appearance: none;
     }
 `;
@@ -35,6 +38,7 @@ export const Input = React.forwardRef((props, ref) => {
             invalid={props.invalid}
             onFocus={props.onFocus}
             value={props.value}
+            style={props.style}
         >
             {props.children}
         </StyledInput>

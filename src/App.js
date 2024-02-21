@@ -4,7 +4,6 @@ import Main from "./routes/pages/Main";
 import Login from "./routes/pages/Login";
 import SignUp from "./routes/pages/SignUp";
 import MyPage from "./routes/pages/MyPage";
-import UpdateUser from "./routes/pages/UpdateUser";
 import NotFound from "./routes/pages/NotFound";
 import Result from "./routes/pages/Result";
 import KakaoRedirect from "./routes/auth/KakaoRedirect";
@@ -24,13 +23,12 @@ function App() {
                         path="/oauth/redirected/kakao"
                         element={<KakaoRedirect />}
                     />
-                    <Route path="/auth/naver" element={<NaverRedirect />} />
-                    <Route path="/auth/google" element={<GoogleRedirect />} />
-                    <Route path="/members" element={<MyPage />} />
                     <Route
-                        path="/members/:id/update"
-                        element={<UpdateUser />}
+                        path="/oauth/redirected/naver"
+                        element={<NaverRedirect />}
                     />
+                    <Route path="/auth/google" element={<GoogleRedirect />} />
+                    <Route path="/members/:id" element={<MyPage />} />
                     <Route path="/signup/result" element={<Result />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

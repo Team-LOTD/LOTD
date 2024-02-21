@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { useForm, useWatch } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { Form as SignUpForm } from "../../styles/components/auth/Form";
 import { Fieldset as SignUpFieldset } from "../../styles/components/auth/Fieldset";
 import { Input as SignUpInput } from "../../styles/components/auth/Input";
 import { Button as SignUpButton } from "../../styles/components/auth/Button";
 import { ErrorMessage as SignUpErrorMessage } from "../../styles/components/auth/ErrorMessage";
+import { SuccessMessage as SignUpSuccessMessage } from "../../styles/components/auth/SuccessMessage";
 import { Hint as SignUpHint } from "../../styles/components/auth/Hint";
 import { P as SignUpP } from "../../styles/components/auth/P";
 import { SubSpan as SignUpSubSpan } from "../../styles/components/auth/SubSpan";
@@ -28,11 +30,6 @@ const PasswordConfirmInput = styled(SignUpInput)`
     width: 400px;
 `;
 
-const AgeInput = styled(SignUpInput)`
-    width: 400px;
-    margin-bottom: 0px;
-`;
-
 const EmailInput = styled(SignUpInput)`
     width: 400px;
 `;
@@ -45,45 +42,48 @@ const SubmitButton = styled(SignUpButton)`
 `;
 
 const AuthSignUpForm = () => {
-    const { register, handleSubmit, watch, control, getValues, setValue } =
-        useForm();
-
-    const [duplicateNickname, setDuplicateNickname] = useState(false);
-    const [duplicateMemberId, setDuplicateMemberId] = useState(false);
-    const [checkData, setCheckData] = useState("");
+    const { register, handleSubmit, control, getValues } = useForm();
+    const [duplicateMemberId, setDuplicateMemberId] = useState("");
+    const [duplicateNickname, setDuplicateNickname] = useState("");
     const [onFocusInput, setOnFocusInput] = useState("");
     const [regexPassword, setRegexPassword] = useState(false);
     const [regexPasswordConfirm, setRegexPasswordConfirm] = useState(false);
-    const [inputValue, setInputValue] = useState("");
+
+    const navigate = useNavigate();
 
     const handleSignUpSubmit = async (data) => {
-        const submitData = {
-            memberId: data.memberId,
-            email: data.email,
-            // memberIdChecked: true,
-            memberIdChecked: duplicateMemberId,
-            password: data.password,
-            confirmPassword: data.passwordConfirm,
-            nickName: data.nickname,
-            // nickNameChecked: true,
-            nickNameChecked: duplicateNickname,
-            age: parseInt(data.age),
-        };
-        const result = await submitSignUp(submitData);
-        console.log(result);
+        if (
+            duplicateMemberId === "SUCCESS" &&
+            duplicateNickname === "SUCCESS"
+        ) {
+            const submitData = {
+                memberId: data.memberId,
+                email: data.email,
+                memberIdChecked: duplicateMemberId === "SUCCESS" ? true : false,
+                password: data.password,
+                confirmPassword: data.passwordConfirm,
+                nickName: data.nickname,
+                nickNameChecked: duplicateNickname === "SUCCESS" ? true : false,
+            };
+            console.log(submitData);
+            const result = await submitSignUp(submitData);
+            if (result === "SUCCESS") {
+                navigate("/");
+            } else {
+                alert(result);
+            }
+        } else {
+            alert("아이디 혹은 닉네임 중복 확인을 진행해주세요.");
+        }
     };
 
     const handleSignUpCheckMemberId = async () => {
-        setCheckData("memberId");
         const result = await checkMemberId(getValues("memberId"));
-
         setDuplicateMemberId(result);
     };
 
     const handleSignUpCheckNickname = async () => {
-        setCheckData("nickname");
         const result = await checkNickname(getValues("nickname"));
-
         setDuplicateNickname(result);
     };
 
@@ -93,7 +93,6 @@ const AuthSignUpForm = () => {
     });
 
     useEffect(() => {
-        console.log(inputData);
         switch (onFocusInput) {
             case "password":
                 validationPatterns.passwordRegex.test(inputData)
@@ -101,14 +100,14 @@ const AuthSignUpForm = () => {
                     : setRegexPassword(false);
                 break;
             case "passwordConfirm":
-                getValues("password") === watch("passwordConfirm")
+                getValues("password") === inputData
                     ? setRegexPasswordConfirm(true)
                     : setRegexPasswordConfirm(false);
                 break;
             default:
                 return;
         }
-    }, [inputData, onFocusInput]);
+    }, [inputData, onFocusInput, getValues]);
 
     return (
         <>
@@ -125,8 +124,14 @@ const AuthSignUpForm = () => {
                                 value: validationPatterns.memberIdRegex,
                             },
                         })}
+                        onFocus={(item) => setOnFocusInput(item.target.name)}
                         placeholder="아이디를 입력해주세요"
-                        invalid={duplicateMemberId ? false : true}
+                        style={{
+                            borderColor:
+                                duplicateMemberId === "FAIL"
+                                    ? "#ff5a5a"
+                                    : "#d9d9d9",
+                        }}
                     />
                     <SignUpButton
                         type="button"
@@ -139,15 +144,16 @@ const AuthSignUpForm = () => {
                         {...register("memberIdAvailable")}
                         value={duplicateMemberId}
                     />
-                    {checkData !== "memberId" ? null : duplicateMemberId ? (
-                        <SignUpErrorMessage invalid={duplicateMemberId}>
-                            사용 가능한 아이디입니다.
-                        </SignUpErrorMessage>
-                    ) : (
-                        <SignUpErrorMessage invalid={duplicateMemberId}>
+                    {onFocusInput !== "memberId" ? null : duplicateMemberId ===
+                      "FAIL" ? (
+                        <SignUpErrorMessage>
                             이미 가입된 아이디입니다.
                         </SignUpErrorMessage>
-                    )}
+                    ) : duplicateMemberId === "SUCCESS" ? (
+                        <SignUpSuccessMessage>
+                            사용 가능한 아이디입니다.
+                        </SignUpSuccessMessage>
+                    ) : null}
                 </SignUpFieldset>
                 <SignUpFieldset>
                     <SignUpP>비밀번호</SignUpP>
@@ -163,11 +169,18 @@ const AuthSignUpForm = () => {
                         })}
                         placeholder="비밀번호를 입력해주세요"
                         onFocus={(item) => setOnFocusInput(item.target.name)}
-                        invalid={!regexPassword}
+                        style={{
+                            borderColor:
+                                onFocusInput === "password"
+                                    ? regexPassword
+                                        ? "#d9d9d9"
+                                        : "#ff5a5a"
+                                    : "#d9d9d9",
+                        }}
                     />
                     {onFocusInput !==
                     "password" ? null : regexPassword ? null : (
-                        <SignUpErrorMessage invalid={regexPassword}>
+                        <SignUpErrorMessage>
                             올바르지 않은 비밀번호 형식입니다.
                         </SignUpErrorMessage>
                     )}
@@ -181,11 +194,18 @@ const AuthSignUpForm = () => {
                         })}
                         placeholder="비밀번호를 다시 입력해주세요"
                         onFocus={(item) => setOnFocusInput(item.target.name)}
-                        invalid={!regexPasswordConfirm}
+                        style={{
+                            borderColor:
+                                onFocusInput === "passwordConfirm"
+                                    ? regexPasswordConfirm
+                                        ? "#d9d9d9"
+                                        : "#ff5a5a"
+                                    : "#d9d9d9",
+                        }}
                     />
                     {onFocusInput !==
                     "passwordConfirm" ? null : regexPasswordConfirm ? null : (
-                        <SignUpErrorMessage invalid={regexPasswordConfirm}>
+                        <SignUpErrorMessage>
                             비밀번호가 일치하지 않습니다.
                         </SignUpErrorMessage>
                     )}
@@ -208,7 +228,13 @@ const AuthSignUpForm = () => {
                             },
                         })}
                         placeholder="닉네임을 입력해주세요"
-                        invalid={duplicateNickname}
+                        onFocus={(item) => setOnFocusInput(item.target.name)}
+                        style={{
+                            borderColor:
+                                duplicateNickname === "FAIL"
+                                    ? "#ff5a5a"
+                                    : "#d9d9d9",
+                        }}
                     />
                     <SignUpButton
                         type="button"
@@ -221,16 +247,16 @@ const AuthSignUpForm = () => {
                         {...register("nicknameAvailable")}
                         value={duplicateNickname}
                     />
-                    {checkData !== "nickname" ? null : duplicateNickname ? (
-                        <SignUpErrorMessage invalid={duplicateNickname}>
+                    {onFocusInput !== "nickname" ? null : duplicateNickname ===
+                      "FAIL" ? (
+                        <SignUpErrorMessage>
+                            이미 가입된 닉네임입니다.
+                        </SignUpErrorMessage>
+                    ) : duplicateNickname === "SUCCESS" ? (
+                        <SignUpSuccessMessage>
                             사용 가능한 닉네임입니다.
-                        </SignUpErrorMessage>
-                    ) : (
-                        <SignUpErrorMessage invalid={duplicateNickname}>
-                            이미 사용중인 닉네임입니다.
-                        </SignUpErrorMessage>
-                    )}
-
+                        </SignUpSuccessMessage>
+                    ) : null}
                     <SignUpHint>
                         한글, 영문(대소문자), 숫자를 조합하여 2~16자로
                         입력해주세요.
@@ -244,19 +270,6 @@ const AuthSignUpForm = () => {
                         type="email"
                         {...register("email", { minLength: 6, maxLength: 35 })}
                         placeholder="이메일을 입력해주세요"
-                    />
-                </SignUpFieldset>
-                <SignUpFieldset>
-                    <SignUpP>
-                        나이<SignUpSubSpan>&nbsp;(선택)</SignUpSubSpan>
-                    </SignUpP>
-                    <AgeInput
-                        type="number"
-                        {...register("age", {
-                            minLength: 1,
-                            pattern: { value: validationPatterns.ageRegex },
-                        })}
-                        placeholder="나이를 입력해주세요"
                     />
                 </SignUpFieldset>
                 <SubmitButton type="submit">가입하기</SubmitButton>

@@ -11,7 +11,7 @@ export const NaverLogin = () => {
     const client_id = process.env.REACT_APP_NAVER_CLIENT_ID;
     const redirect_uri = process.env.REACT_APP_NAVER_REDIRECT_URI;
     const state = process.env.REACT_APP_NAVER_STATE;
-    const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}&state=${state}`;
+    const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}`;
 
     console.log(naverURL);
 
@@ -27,3 +27,5 @@ export const GoogleLogin = () => {
 
     return (window.location.href = googleURL);
 };
+
+// state 미 사용시 URL 업데이트 및 state 삭제 진행 해야함
