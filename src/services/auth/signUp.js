@@ -23,7 +23,7 @@ export const submitSignUp = async (submitData) => {
 
 export const checkMemberId = async (memberId) => {
     try {
-        const response = await Axios.get("/api/memberid/check", {
+        const response = await Axios.get("/api/memberId/check", {
             params: {
                 memberId: memberId,
             },
@@ -48,7 +48,7 @@ export const checkNickname = async (nickname) => {
     try {
         const response = await Axios.get("/api/nickname/check", {
             params: {
-                nickName: nickname,
+                nickname: nickname,
             },
         });
         return response.data.status;

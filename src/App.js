@@ -27,7 +27,10 @@ function App() {
                         path="/oauth/redirected/naver"
                         element={<NaverRedirect />}
                     />
-                    <Route path="/auth/google" element={<GoogleRedirect />} />
+                    <Route
+                        path="/oauth/redirected/google"
+                        element={<GoogleRedirect />}
+                    />
                     <Route path="/members/:id" element={<MyPage />} />
                     <Route path="/signup/result" element={<Result />} />
                     <Route path="*" element={<NotFound />} />

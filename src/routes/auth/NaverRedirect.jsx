@@ -19,6 +19,26 @@ const NaverRedirect = () => {
                     },
                 });
                 console.log(response.data);
+
+                const sendUserInfo = {
+                    kakaoMemberId: response.data.naverMemberId,
+                    email: response.data.email,
+                    nickName: "testNaver",
+                };
+                console.log(sendUserInfo);
+
+                try {
+                    const sendResponse = await Axios.post(
+                        "/api/oauth/naver/nickname",
+                        sendUserInfo
+                    );
+                    console.log(sendResponse.data);
+                } catch (error) {
+                    console.log("Error sendKakaoAuthCode response", error);
+                    throw error;
+                }
+
+                // return response.data;
             } catch (error) {
                 console.log("Error sendNaverAuthCode response", error);
                 throw error;

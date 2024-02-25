@@ -11,7 +11,6 @@ const KakaoRedirect = () => {
 
     useEffect(() => {
         async function SendKakaoAuthCode() {
-            console.log("aa");
             try {
                 const response = await Axios.get("/api/oauth/kakao/login", {
                     params: {
@@ -19,6 +18,23 @@ const KakaoRedirect = () => {
                     },
                 });
                 console.log(response.data);
+                // const sendUserInfo = {
+                //     kakaoMemberId: response.data.kakaoMemberId,
+                //     email: response.data.email,
+                //     nickName: "testKakao",
+                // };
+                // console.log(sendUserInfo);
+
+                // try {
+                //     const sendResponse = await Axios.post(
+                //         "/api/oauth/kakao/nickname",
+                //         sendUserInfo
+                //     );
+                //     console.log(sendResponse.data);
+                // } catch (error) {
+                //     console.log("Error sendKakaoAuthCode response", error);
+                //     throw error;
+                // }
                 // return response.data;
             } catch (error) {
                 console.log("Error sendKakaoAuthCode response", error);

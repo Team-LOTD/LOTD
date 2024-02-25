@@ -12,7 +12,6 @@ const GoogleRedirect = () => {
 
     useEffect(() => {
         async function SendGoogleAuthCode() {
-            console.log("aa");
             try {
                 const response = await Axios.get("/api/oauth/google/login", {
                     params: {
@@ -20,6 +19,23 @@ const GoogleRedirect = () => {
                     },
                 });
                 console.log(response.data);
+                const sendUserInfo = {
+                    googleMemberId: response.data.googleMemberId,
+                    email: response.data.email,
+                    nickName: "testGoogle",
+                };
+                console.log(sendUserInfo);
+
+                try {
+                    const sendResponse = await Axios.post(
+                        "/api/oauth/google/nickname",
+                        sendUserInfo
+                    );
+                    console.log(sendResponse.data);
+                } catch (error) {
+                    console.log("Error sendGoogleAuthCode response", error);
+                    throw error;
+                }
                 return response.data;
             } catch (error) {
                 console.log("Error sendGoogleAuthCode response", error);
