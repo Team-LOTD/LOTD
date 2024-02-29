@@ -53,15 +53,14 @@ export const checkNickname = async (nickname) => {
         });
         return response.data.status;
     } catch (error) {
+        console.log("Error checkNickname");
         if (error.response) {
-            console.log("Error data", error.response.data.message);
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
             if (error.response.status === 400) {
                 return error.response.data.status;
             }
-        } else if (error.request) {
-            console.error("Request error: ", error.request);
-        } else {
-            console.error("Error: ", error.message);
         }
         throw error;
     }

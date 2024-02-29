@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { getJWTToken } from "../../utils/setJWTToken";
+import { getJWTToken } from "../../utils/JWTToken";
 
 const Container = styled.div`
     width: 100%;
@@ -10,15 +9,15 @@ const Container = styled.div`
 `;
 
 function Header() {
-    const { id } = getJWTToken();
+    const jwt = getJWTToken();
 
-    console.log(id);
+    console.log(jwt);
 
     return (
         <Container>
             <Link to={"/login"}>로그인</Link>
             <button>로그아웃</button>
-            <Link to={`/members/${id}`}>마이페이지</Link>
+            <Link to={`/members/1`}>마이페이지</Link>
         </Container>
     );
 }

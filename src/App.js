@@ -9,6 +9,7 @@ import Result from "./routes/pages/Result";
 import KakaoRedirect from "./routes/auth/KakaoRedirect";
 import NaverRedirect from "./routes/auth/NaverRedirect";
 import GoogleRedirect from "./routes/auth/GoogleRedirect";
+import SocialSignUp from "./routes/auth/SocialSignUp";
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                         path="/oauth/redirected/google"
                         element={<GoogleRedirect />}
                     />
+                    <Route path="/members/addinfo" element={<SocialSignUp />} />
                     <Route path="/members/:id" element={<MyPage />} />
                     <Route path="/signup/result" element={<Result />} />
                     <Route path="*" element={<NotFound />} />

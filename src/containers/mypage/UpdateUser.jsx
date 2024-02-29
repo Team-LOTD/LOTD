@@ -15,6 +15,9 @@ import { PopUpBox } from "../../styles/components/mypage/PopUpBox";
 import { searchUser } from "../../services/mypage/update";
 import { PopUpTitle } from "../../styles/components/mypage/PopUpTitle";
 import { PopUpSubTitle } from "../../styles/components/mypage/PopUpSubTitle";
+import { PopUpInput } from "../../styles/components/mypage/PopUpInput";
+import { PopUpButtonBox } from "../../styles/components/mypage/PopUpButtonBox";
+import { PopUpButton } from "../../styles/components/mypage/PopUpButton";
 
 const UpdateProfileEditImg = styled.img`
     width: 17.25px;
@@ -31,6 +34,20 @@ const ArrorwRight = styled.img`
     margin-left: 8px;
 `;
 
+const PopUpCancelButton = styled(PopUpButton)`
+    background-color: #ffffff;
+    color: #222222;
+`;
+
+const NicknameInput = styled(PopUpInput)`
+    width: 290px;
+    margin-right: 0px;
+`;
+
+const NicknameCheckButton = styled(PopUpButton)`
+    margin-left: 8px;
+`;
+
 const PopUpItem = ({ item }) => {
     console.log(item);
     const PopUp = {
@@ -38,15 +55,36 @@ const PopUpItem = ({ item }) => {
             <>
                 <PopUpTitle>이메일 변경</PopUpTitle>
                 <PopUpSubTitle>이메일</PopUpSubTitle>
+                <PopUpInput type="email" placeholder="이메일을 입력해주세요" />
+                <PopUpButtonBox>
+                    <PopUpCancelButton>취소</PopUpCancelButton>
+                    <PopUpButton>저장</PopUpButton>
+                </PopUpButtonBox>
             </>
         ),
         password: <ArrorwRight></ArrorwRight>,
-        nickname: <ArrorwRight></ArrorwRight>,
+        nickname: (
+            <>
+                <PopUpTitle>닉네임 변경</PopUpTitle>
+                <PopUpSubTitle>닉네임</PopUpSubTitle>
+                <NicknameInput
+                    type="text"
+                    placeholder="닉네임을 입력해주세요"
+                />
+                <NicknameCheckButton type="button">
+                    중복 확인
+                </NicknameCheckButton>
+                <PopUpButtonBox>
+                    <PopUpCancelButton>취소</PopUpCancelButton>
+                    <PopUpButton>저장</PopUpButton>
+                </PopUpButtonBox>
+            </>
+        ),
         delete: <ArrorwRight></ArrorwRight>,
     };
     console.log(PopUp.email);
     console.log(PopUp.item);
-    return PopUp.item;
+    return PopUp[item];
 };
 
 const UpdateUser = () => {

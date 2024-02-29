@@ -2,7 +2,7 @@ import Axios from "axios";
 import { useEffect } from "react";
 import "../../css/Main.css";
 
-import { getJWTToken } from "../../utils/setJWTToken";
+import { getJWTToken } from "../../utils/JWTToken";
 
 function Main() {
     const date = new Date();
