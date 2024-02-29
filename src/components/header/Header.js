@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { getJWTToken } from "../../utils/setJWTToken";
 
 const Container = styled.div`
     width: 100%;
@@ -9,7 +10,9 @@ const Container = styled.div`
 `;
 
 function Header() {
-    const id = 1;
+    const { id } = getJWTToken();
+
+    console.log(id);
 
     return (
         <Container>

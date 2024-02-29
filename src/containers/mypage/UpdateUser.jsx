@@ -14,6 +14,7 @@ import { PopUpBox } from "../../styles/components/mypage/PopUpBox";
 
 import { searchUser } from "../../services/mypage/update";
 import { PopUpTitle } from "../../styles/components/mypage/PopUpTitle";
+import { PopUpSubTitle } from "../../styles/components/mypage/PopUpSubTitle";
 
 const UpdateProfileEditImg = styled.img`
     width: 17.25px;
@@ -30,15 +31,22 @@ const ArrorwRight = styled.img`
     margin-left: 8px;
 `;
 
-const PopUpItem = (item) => {
+const PopUpItem = ({ item }) => {
     console.log(item);
     const PopUp = {
-        email: <UpdateProfileBlur>asdf</UpdateProfileBlur>,
+        email: (
+            <>
+                <PopUpTitle>이메일 변경</PopUpTitle>
+                <PopUpSubTitle>이메일</PopUpSubTitle>
+            </>
+        ),
         password: <ArrorwRight></ArrorwRight>,
         nickname: <ArrorwRight></ArrorwRight>,
         delete: <ArrorwRight></ArrorwRight>,
     };
-    return PopUp.aa;
+    console.log(PopUp.email);
+    console.log(PopUp.item);
+    return PopUp.item;
 };
 
 const UpdateUser = () => {
@@ -80,12 +88,7 @@ const UpdateUser = () => {
                 onClick={handleClickBlur}
             />
             <PopUpBox style={{ display: blur }}>
-                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
-                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
-                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
-                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
-                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
-                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
+                <PopUpItem item={clickItem}></PopUpItem>
             </PopUpBox>
             <UpdateProfileBox>
                 <UpdateProfileImg

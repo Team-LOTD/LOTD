@@ -11,15 +11,15 @@ function Main() {
         async function RememberMe() {
             const jwt = await getJWTToken();
             if (jwt !== null) {
-                if (date.getTime() > jwt.accessTokenExpiresIn) {
-                    // localStorage.removeItem("jwt");
-                } else {
-                    const response = await Axios.get("/api/asdf", {
-                        accessToken: jwt.accessToken,
-                        refreshToken: jwt.refreshToken,
-                    });
-                    console.log(response);
-                }
+                // if (date.getTime() > jwt.accessTokenExpiresIn) {
+                //     // localStorage.removeItem("jwt");
+                // } else {
+                //     const response = await Axios.get("/api/asdf", {
+                //         accessToken: jwt.accessToken,
+                //         refreshToken: jwt.refreshToken,
+                //     });
+                //     console.log(response);
+                // }
             }
         }
         RememberMe();

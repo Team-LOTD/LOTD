@@ -22,8 +22,9 @@ export const GoogleLogin = () => {
     const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const redirect_uri = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
     const scope = process.env.REACT_APP_GOOGLE_SCOPE;
-    // const state = process.env.REACT_APP_GOOGLE_STATE;
-    const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=code`;
+    const state = process.env.REACT_APP_GOOGLE_STATE;
+    const accessType = process.env.REACT_APP_GOOGLE_ACCESSTYPE;
+    const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=code&access_type=${accessType}`;
 
     return (window.location.href = googleURL);
 };

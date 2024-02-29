@@ -23,7 +23,7 @@ const NaverRedirect = () => {
                 console.log(response.data);
 
                 const sendUserInfo = {
-                    kakaoMemberId: response.data.naverMemberId,
+                    naverMemberId: response.data.naverMemberId,
                     email: response.data.email,
                     nickName: "testNaver",
                 };

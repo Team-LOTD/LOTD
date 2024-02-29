@@ -14,6 +14,7 @@ const GoogleRedirect = () => {
 
     useEffect(() => {
         async function SendGoogleAuthCode() {
+            console.log(code);
             try {
                 const response = await Axios.get("/api/oauth/google/login", {
                     params: {
