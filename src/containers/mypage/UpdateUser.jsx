@@ -10,8 +10,10 @@ import { ProfileSpan as UpdateUserSpan } from "../../styles/components/mypage/Pr
 import { ProfileDiv as UpdateUserDiv } from "../../styles/components/mypage/ProfileDiv";
 import { ProfileHr as UpdateUserHr } from "../../styles/components/mypage/ProfileHr";
 import { ProfileBlur as UpdateProfileBlur } from "../../styles/components/mypage/Blur";
+import { PopUpBox } from "../../styles/components/mypage/PopUpBox";
 
 import { searchUser } from "../../services/mypage/update";
+import { PopUpTitle } from "../../styles/components/mypage/PopUpTitle";
 
 const UpdateProfileEditImg = styled.img`
     width: 17.25px;
@@ -28,16 +30,35 @@ const ArrorwRight = styled.img`
     margin-left: 8px;
 `;
 
+const PopUpItem = (item) => {
+    console.log(item);
+    const PopUp = {
+        email: <UpdateProfileBlur>asdf</UpdateProfileBlur>,
+        password: <ArrorwRight></ArrorwRight>,
+        nickname: <ArrorwRight></ArrorwRight>,
+        delete: <ArrorwRight></ArrorwRight>,
+    };
+    return PopUp.aa;
+};
+
 const UpdateUser = () => {
-    const [userInfo, setUserInfo] = useState([]);
     const [blur, setBlur] = useState("none");
+    const [clickItem, setClickItem] = useState("");
 
     const navigate = useNavigate();
 
     const handleUpdateUserClick = (item) => {
         setBlur("block");
-        console.log(item);
+        setClickItem(item);
     };
+
+    const handleClickBlur = () => {
+        setBlur("none");
+    };
+
+    useEffect(() => {
+        console.log(clickItem);
+    }, [clickItem]);
 
     useEffect(() => {
         // const checkJWTLocalstorage = JSON.parse(localStorage.getItem("jwt"));
@@ -52,13 +73,20 @@ const UpdateUser = () => {
         // }
     }, [navigate]);
 
-    useEffect(() => {
-        console.log(userInfo);
-    }, [userInfo]);
-
     return (
         <>
-            <UpdateProfileBlur style={{ display: blur }} />
+            <UpdateProfileBlur
+                style={{ display: blur }}
+                onClick={handleClickBlur}
+            />
+            <PopUpBox style={{ display: blur }}>
+                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
+                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
+                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
+                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
+                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
+                <PopUpTitle>asdfsdfㄴㅁㅇㄻㄴㅇㄹㅈㅇㄹㅇ</PopUpTitle>
+            </PopUpBox>
             <UpdateProfileBox>
                 <UpdateProfileImg
                     src={process.env.PUBLIC_URL + "/images/profile-sample.jpg"}
@@ -120,6 +148,7 @@ const UpdateUser = () => {
                 <UpdateUserSpan>회원 탈퇴</UpdateUserSpan>
                 <UpdateUserDiv
                     style={{ width: "80px", justifyContent: "right" }}
+                    onClick={() => handleUpdateUserClick("delete")}
                 >
                     <ArrorwRight
                         src={process.env.PUBLIC_URL + "/images/arrow-right.png"}

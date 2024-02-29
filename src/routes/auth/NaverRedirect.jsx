@@ -2,6 +2,8 @@ import Axios from "axios";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { setJWTToken } from "../../utils/setJWTToken";
+
 const NaverRedirect = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -33,8 +35,12 @@ const NaverRedirect = () => {
                         sendUserInfo
                     );
                     console.log(sendResponse.data);
+                    setJWTToken(sendResponse.data);
                 } catch (error) {
-                    console.log("Error sendKakaoAuthCode response", error);
+                    console.log(
+                        "Error sendReturnNaverUserInfo response",
+                        error
+                    );
                     throw error;
                 }
 

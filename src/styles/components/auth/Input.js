@@ -14,7 +14,7 @@ const StyledInput = styled.input`
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
-    color: #cacaca;
+    color: #222222;
     &::placeholder {
         color: #d9d9d9;
     }

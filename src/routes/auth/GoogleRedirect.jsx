@@ -2,6 +2,8 @@ import Axios from "axios";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { setJWTToken } from "../../utils/setJWTToken";
+
 const GoogleRedirect = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -32,8 +34,12 @@ const GoogleRedirect = () => {
                         sendUserInfo
                     );
                     console.log(sendResponse.data);
+                    setJWTToken(sendResponse.data);
                 } catch (error) {
-                    console.log("Error sendGoogleAuthCode response", error);
+                    console.log(
+                        "Error sendReturnGoogleUserInfo response",
+                        error
+                    );
                     throw error;
                 }
                 return response.data;

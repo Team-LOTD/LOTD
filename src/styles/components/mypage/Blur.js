@@ -12,7 +12,11 @@ const StyledProfileBlur = styled.div`
 
 export const ProfileBlur = (props) => {
     return (
-        <StyledProfileBlur className={props.className} style={props.style}>
+        <StyledProfileBlur
+            className={props.className}
+            style={props.style}
+            onClick={props.onClick}
+        >
             {props.children}
         </StyledProfileBlur>
     );

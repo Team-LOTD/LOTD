@@ -101,13 +101,12 @@ const AuthLoginForm = () => {
                                     : "#d9d9d9",
                         }}
                     />
-                    {inputData && inputData !== "" ? (
-                        regexPassword ? null : (
-                            <LoginErrorMessage>
-                                올바르지 않은 비밀번호 형식입니다.
-                            </LoginErrorMessage>
-                        )
-                    ) : null}
+                    {onFocusInput !==
+                    "password" ? null : regexPassword ? null : (
+                        <LoginErrorMessage>
+                            올바르지 않은 비밀번호 형식입니다.
+                        </LoginErrorMessage>
+                    )}
                 </LoginFieldset>
                 <LoginSubmit type="submit">로그인</LoginSubmit>
             </LoginForm>
