@@ -6,7 +6,7 @@ const StyledPopUpInput = styled.input`
     padding: 13px 20px;
     border-radius: 4px;
     border: 1px solid #d9d9d9;
-    margin: 0px 24px;
+    margin: 8px 24px 0px 24px;
     font-family: Pretendard;
     font-size: 16px;
     font-weight: 500;

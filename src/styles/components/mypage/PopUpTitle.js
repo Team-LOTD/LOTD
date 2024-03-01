@@ -10,7 +10,7 @@ const StyledPopUpTitle = styled.p`
     line-height: 21px;
     letter-spacing: 0em;
     text-align: left;
-    margin: 24px auto 32px auto;
+    margin: 24px auto 0px auto;
 `;
 
 export const PopUpTitle = (props) => {

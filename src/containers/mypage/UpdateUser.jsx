@@ -18,6 +18,7 @@ import { PopUpSubTitle } from "../../styles/components/mypage/PopUpSubTitle";
 import { PopUpInput } from "../../styles/components/mypage/PopUpInput";
 import { PopUpButtonBox } from "../../styles/components/mypage/PopUpButtonBox";
 import { PopUpButton } from "../../styles/components/mypage/PopUpButton";
+import { PopUpHint } from "../../styles/components/mypage/PopUpHint";
 
 const UpdateProfileEditImg = styled.img`
     width: 17.25px;
@@ -62,7 +63,33 @@ const PopUpItem = ({ item }) => {
                 </PopUpButtonBox>
             </>
         ),
-        password: <ArrorwRight></ArrorwRight>,
+        password: (
+            <>
+                <PopUpTitle>비밀번호 변경</PopUpTitle>
+                <PopUpSubTitle>현재 비밀번호</PopUpSubTitle>
+                <PopUpInput
+                    type="password"
+                    placeholder="비밀번호를 입력해주세요"
+                />
+                <PopUpSubTitle>새로운 비밀번호</PopUpSubTitle>
+                <PopUpInput
+                    type="password"
+                    placeholder="새로운 비밀번호를 입력해주세요"
+                />
+                <PopUpInput
+                    type="password"
+                    placeholder="새로운 비밀번호를 다시 입력해주세요"
+                />
+                <PopUpHint>
+                    영문 대소문자, 특수문자, 숫자 중 3가지 이상으로 조합하여
+                    8~20자로 입력해주세요.
+                </PopUpHint>
+                <PopUpButtonBox>
+                    <PopUpCancelButton>취소</PopUpCancelButton>
+                    <PopUpButton>저장</PopUpButton>
+                </PopUpButtonBox>
+            </>
+        ),
         nickname: (
             <>
                 <PopUpTitle>닉네임 변경</PopUpTitle>
