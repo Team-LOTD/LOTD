@@ -5,7 +5,7 @@ import { setJWTToken } from "../../utils/JWTToken";
 export const submitLogin = async (submitData) => {
     try {
         const response = await Axios.post("/api/login", submitData);
-        setJWTToken(response.data);
+        setJWTToken(response.data.data);
         window.location.replace("/");
     } catch (error) {
         if (error.response) {

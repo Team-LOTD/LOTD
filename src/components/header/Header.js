@@ -16,8 +16,10 @@ function Header() {
     return (
         <Container>
             <Link to={"/login"}>로그인</Link>
-            <button>로그아웃</button>
-            <Link to={`/members/1`}>마이페이지</Link>
+            <button onClick={() => localStorage.removeItem("jwt")}>
+                로그아웃
+            </button>
+            {jwt ? <Link to={`/members/${jwt.id}`}>마이페이지</Link> : null}
         </Container>
     );
 }

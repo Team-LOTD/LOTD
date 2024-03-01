@@ -24,21 +24,22 @@ const SubmitButton = styled(SocialSignUpButton)`
 `;
 
 const AuthSocialSignUpForm = () => {
-    const { addInfo } = useLocation();
+    const { addInfo, social } = useLocation().state;
     const { register, handleSubmit, getValues } = useForm();
 
     const [duplicateNickname, setDuplicateNickname] = useState("");
-
-    const handleSignUpSubmit = (data) => {
+    const handleSignUpSubmit = async (data) => {
         if (duplicateNickname === "SUCCESS") {
+            const socialMemberId = `${social}MemberId`;
             const submitData = {
-                memberId: addInfo.memberId,
+                [socialMemberId]: addInfo.memberId,
                 email: addInfo.email,
-                nickname: data.nickname,
-                nickNameChecked: duplicateNickname === "SUCCESS" ? true : false,
-                socialType: addInfo.socialType,
+                nickName: data.nickname,
             };
-            signUpSocialUser(submitData);
+            console.log(submitData);
+            await signUpSocialUser(submitData, social);
+        } else {
+            alert("닉네임 중복 확인");
         }
     };
 

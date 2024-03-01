@@ -9,7 +9,7 @@ const StyledPopUpTitle = styled.p`
     font-weight: 700;
     line-height: 21px;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
     margin: 24px auto 0px auto;
 `;
 

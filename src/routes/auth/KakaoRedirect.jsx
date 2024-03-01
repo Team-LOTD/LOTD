@@ -13,12 +13,21 @@ const KakaoRedirect = () => {
     useEffect(() => {
         async function SendKakaoAuthCode() {
             const userInfo = await sendKakaoAuthCode(code);
-            const sendUserInfo = {
-                memberId: userInfo.kakaoMemberId,
-                email: userInfo.email,
-                socialType: userInfo.socialType,
-            };
-            navigate("/member/addinfo", { addInfo: sendUserInfo });
+            console.log(userInfo);
+            if (userInfo === "onExists") {
+                window.location.replace("/");
+            } else {
+                const sendUserInfo = {
+                    memberId: userInfo.kakaoMemberId,
+                    email: userInfo.email,
+                };
+                navigate("/members/addinfo", {
+                    state: {
+                        addInfo: sendUserInfo,
+                        social: "kakao",
+                    },
+                });
+            }
         }
         SendKakaoAuthCode();
     }, [code, navigate]);

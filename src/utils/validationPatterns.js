@@ -1,4 +1,5 @@
 const validationPatterns = {
+    emailRegex: /^[A-Za-z\d@]{4,25}$/,
     memberIdRegex: /^[A-Za-z\d@]{4,25}$/,
     passwordRegex:
         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-])[a-zA-Z\d!@#$%^&*()_+{}[\]:;<>,.?~\\/-]{8,20}$/,

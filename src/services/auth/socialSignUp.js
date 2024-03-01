@@ -9,7 +9,12 @@ export const sendGoogleAuthCode = async (code) => {
                 code: code,
             },
         });
+        // if (response.data.accessToken !== null) {
+        //     setJWTToken(response.data.data);
+        //     return "onExists";
+        // } else {
         return response.data;
+        // }
     } catch (error) {
         console.log("Error sendGoogleAuthCode response");
         if (error.response) {
@@ -22,13 +27,20 @@ export const sendGoogleAuthCode = async (code) => {
 };
 
 export const sendNaverAuthCode = async (code) => {
+    console.log(code);
     try {
         const response = await Axios.get("/api/oauth/naver/login", {
             params: {
                 code: code,
             },
         });
+        // console.log("NaverCode", JSON.parse(response));
+        // if (response.data.data.accessToken) {
+        //     setJWTToken(response.data.data);
+        //     return "onExists";
+        // } else {
         return response.data;
+        // }
     } catch (error) {
         console.log("Error sendNaverAuthCode response");
         if (error.response) {
@@ -47,7 +59,12 @@ export const sendKakaoAuthCode = async (code) => {
                 code: code,
             },
         });
+        // if (response.data.data.accessToken) {
+        //     setJWTToken(response.data.data);
+        //     return "onExists";
+        // } else {
         return response.data;
+        // }
     } catch (error) {
         console.log("Error sendKakaoAuthCode response");
         if (error.response) {
@@ -59,13 +76,16 @@ export const sendKakaoAuthCode = async (code) => {
     }
 };
 
-export const signUpSocialUser = async (userInfo) => {
+export const signUpSocialUser = async (userInfo, social) => {
     try {
-        const response = Axios.post("/api/oauth/google/nickname", userInfo);
+        const response = await Axios.post(
+            `/api/oauth/${social}/nickname`,
+            userInfo
+        );
         setJWTToken(response.data);
         window.location.replace("/");
     } catch (error) {
-        console.log("Error sendReturnGoogleUserInfo response");
+        console.log(`Error sendReturn${social}UserInfo response`);
         if (error.response) {
             console.log(error.response.data);
             console.log(error.response.status);

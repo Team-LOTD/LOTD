@@ -13,15 +13,25 @@ const NaverRedirect = () => {
     useEffect(() => {
         async function SendNaverAuthCode() {
             const userInfo = await sendNaverAuthCode(code);
+            console.log(userInfo);
+            // if (userInfo === "onExists") {
+            //     window.location.replace("/");
+            // } else {
+            console.log(userInfo);
             const sendUserInfo = {
                 memberId: userInfo.naverMemberId,
                 email: userInfo.email,
-                socialType: userInfo.socialType,
             };
-            navigate("/member/addinfo", { addInfo: sendUserInfo });
+            navigate("/members/addinfo", {
+                state: {
+                    addInfo: sendUserInfo,
+                    social: "naver",
+                },
+            });
+            // }
         }
         SendNaverAuthCode();
-    }, [code]);
+    }, [code, navigate]);
 };
 
 export default NaverRedirect;
