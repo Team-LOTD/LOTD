@@ -66,9 +66,10 @@ const PostsForm = () => {
         } else {
             const submitData = {
                 title: title,
-                image: imageURL,
+                image: null,
+                // image: imageURL,
                 content: editRef.current.getInstance().getMarkdown(),
-                category_no: category,
+                categoryId: category,
             };
             const response = await savePosts(submitData);
             console.log(response);

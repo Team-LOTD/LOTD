@@ -31,6 +31,7 @@ const KakaoRedirect = () => {
         }
         SendKakaoAuthCode();
     }, [code, navigate]);
+    return null;
 };
 
 export default KakaoRedirect;

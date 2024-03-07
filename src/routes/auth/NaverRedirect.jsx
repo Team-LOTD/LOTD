@@ -32,6 +32,7 @@ const NaverRedirect = () => {
         }
         SendNaverAuthCode();
     }, [code, navigate]);
+    return null;
 };
 
 export default NaverRedirect;

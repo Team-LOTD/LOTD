@@ -1,9 +1,9 @@
-import PostsWrite from "../../components/posts/PostsWrite";
+import Write from "../../components/posts/Write";
 
 const Posts = () => {
     return (
         <>
-            <PostsWrite></PostsWrite>
+            <Write></Write>
         </>
     );
 };

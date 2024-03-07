@@ -32,6 +32,7 @@ const GoogleRedirect = () => {
         }
         SendGoogleAuthCode();
     }, [code, navigate]);
+    return null;
 };
 
 export default GoogleRedirect;

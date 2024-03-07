@@ -1,6 +1,6 @@
 import PostsForm from "../../containers/posts/PostsForm";
 
-const PostsWrite = () => {
+const Write = () => {
     return (
         <>
             <PostsForm></PostsForm>
@@ -8,4 +8,4 @@ const PostsWrite = () => {
     );
 };
 
-export default PostsWrite;
+export default Write;

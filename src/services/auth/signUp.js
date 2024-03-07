@@ -45,7 +45,7 @@ export const checkMemberId = async (memberId) => {
 
 export const checkNickname = async (nickname) => {
     try {
-        const response = await Axios.get("/api/nicknames/check", {
+        const response = await Axios.get("/api/nickname/check", {
             params: {
                 nickname: nickname,
             },

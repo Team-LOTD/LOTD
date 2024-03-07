@@ -11,6 +11,7 @@ import NaverRedirect from "./routes/auth/NaverRedirect";
 import GoogleRedirect from "./routes/auth/GoogleRedirect";
 import SocialSignUp from "./routes/auth/SocialSignUp";
 import Posts from "./routes/pages/Posts";
+import PostsView from "./routes/pages/PostsView";
 
 function App() {
     return (
@@ -38,6 +39,10 @@ function App() {
                     <Route path="/signup/result" element={<Result />} />
                     <Route path="/posts" element={<Posts />} />
                     <Route path="/posts/:post_id" element={<Posts />} />
+                    <Route
+                        path="/posts/:post_id/:category_Id"
+                        element={<PostsView />}
+                    />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>

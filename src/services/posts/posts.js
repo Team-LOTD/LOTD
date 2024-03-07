@@ -4,16 +4,20 @@ const jwtToken = JSON.parse(localStorage.getItem("jwt"));
 
 export const savePosts = async (submitData) => {
     try {
-        const response = await Axios.post(
-            "/api/posts",
-            { ...submitData, member_id: jwtToken.id },
-            {
-                headers: {
-                    Authorization: `Bearer ${jwtToken.accessToken}`,
-                    "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
-                },
-            }
-        );
+        const sendPostData = {
+            ...submitData,
+            memberId: jwtToken.memberId,
+            commentsCount: 0,
+            likeCount: 0,
+            hits: 0,
+        };
+        console.log(sendPostData);
+        const response = await Axios.post("/api/posts", sendPostData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken.accessToken}`,
+                "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
+            },
+        });
         return response;
     } catch (error) {
         console.log("Error savePosts");
@@ -30,6 +34,7 @@ export const searchPosts = async (post_id) => {
         const response = await Axios.get("/api/posts", {
             params: {
                 post_id: post_id,
+                category_id: 1,
             },
             headers: {
                 Authorization: `Bearer ${jwtToken.accessToken}`,
