@@ -14,21 +14,21 @@ const NaverRedirect = () => {
         async function SendNaverAuthCode() {
             const userInfo = await sendNaverAuthCode(code);
             console.log(userInfo);
-            // if (userInfo === "onExists") {
-            //     window.location.replace("/");
-            // } else {
-            console.log(userInfo);
-            const sendUserInfo = {
-                memberId: userInfo.naverMemberId,
-                email: userInfo.email,
-            };
-            navigate("/members/addinfo", {
-                state: {
-                    addInfo: sendUserInfo,
-                    social: "naver",
-                },
-            });
-            // }
+            if (userInfo === "onExists") {
+                window.location.replace("/");
+            } else {
+                console.log(userInfo);
+                const sendUserInfo = {
+                    memberId: userInfo.naverMemberId,
+                    email: userInfo.email,
+                };
+                navigate("/members/addinfo", {
+                    state: {
+                        addInfo: sendUserInfo,
+                        social: "naver",
+                    },
+                });
+            }
         }
         SendNaverAuthCode();
     }, [code, navigate]);

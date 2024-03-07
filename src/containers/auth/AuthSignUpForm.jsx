@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useForm, useWatch } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 import { Form as SignUpForm } from "../../styles/components/auth/Form";
 import { Fieldset as SignUpFieldset } from "../../styles/components/auth/Fieldset";
@@ -49,8 +48,6 @@ const AuthSignUpForm = () => {
     const [regexPassword, setRegexPassword] = useState(false);
     const [regexPasswordConfirm, setRegexPasswordConfirm] = useState(false);
 
-    const navigate = useNavigate();
-
     const handleSignUpSubmit = async (data) => {
         if (
             duplicateMemberId === "SUCCESS" &&
@@ -65,13 +62,7 @@ const AuthSignUpForm = () => {
                 nickName: data.nickname,
                 nickNameChecked: duplicateNickname === "SUCCESS" ? true : false,
             };
-            console.log(submitData);
-            const result = await submitSignUp(submitData);
-            if (result === "SUCCESS") {
-                navigate("/");
-            } else {
-                alert(result);
-            }
+            await submitSignUp(submitData);
         } else {
             alert("아이디 혹은 닉네임 중복 확인을 진행해주세요.");
         }
@@ -94,6 +85,9 @@ const AuthSignUpForm = () => {
 
     useEffect(() => {
         switch (onFocusInput) {
+            case "memberId":
+                setDuplicateMemberId("");
+                break;
             case "password":
                 validationPatterns.passwordRegex.test(inputData)
                     ? setRegexPassword(true)
@@ -104,10 +98,17 @@ const AuthSignUpForm = () => {
                     ? setRegexPasswordConfirm(true)
                     : setRegexPasswordConfirm(false);
                 break;
+            case "nickname":
+                setDuplicateNickname("");
+                break;
             default:
                 return;
         }
     }, [inputData, onFocusInput, getValues]);
+
+    useEffect(() => {
+        console.log(duplicateMemberId);
+    }, [duplicateMemberId]);
 
     return (
         <>

@@ -17,6 +17,8 @@ import { PopUpButtonBox } from "../../styles/components/mypage/PopUpButtonBox";
 import { PopUpButton } from "../../styles/components/mypage/PopUpButton";
 import { PopUpHint } from "../../styles/components/mypage/PopUpHint";
 import { checkNickname } from "../../services/auth/signUp";
+import { ErrorMessage } from "../../styles/components/auth/ErrorMessage";
+import { SuccessMessage } from "../../styles/components/auth/SuccessMessage";
 
 import validationPatterns from "../../utils/validationPatterns";
 import {
@@ -57,16 +59,25 @@ const NicknameCheckButton = styled(PopUpButton)`
     margin-left: 8px;
 `;
 
-const PopUpItem = ({ item, socialType }) => {
+const PopUpErrorMessage = styled(ErrorMessage)`
+    margin-left: 24px;
+`;
+
+const PopUpSuccessMessage = styled(SuccessMessage)`
+    margin-left: 24px;
+`;
+
+const PopUpItem = ({ item, socialType, onHandleClosePopUp }) => {
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
-    const [duplicateNickname, setDuplicateNickname] = useState("FAIL");
+    const [duplicateNickname, setDuplicateNickname] = useState("");
     const [password, setPassword] = useState({
         asIsPassword: "",
         toBePassword: "",
         confirmToBePassword: "",
     });
     const [deletePassword, setDeletePassword] = useState("");
+    const [onFocusInput, setOnFocusInput] = useState("");
 
     const handleUpdateEmail = () => {
         updateEmail(email);
@@ -89,29 +100,24 @@ const PopUpItem = ({ item, socialType }) => {
     };
 
     const handleChangeCurrentPassword = (event) => {
-        if (validationPatterns.passwordRegex.test(event.target.value))
-            setPassword((prevState) => {
-                return { ...prevState, asIsPassword: event.target.value };
-            });
+        setPassword((prevState) => {
+            return { ...prevState, asIsPassword: event.target.value };
+        });
     };
 
     const handleChangeNewPassword = (event) => {
-        if (validationPatterns.passwordRegex.test(event.target.value)) {
-            setPassword((prevState) => {
-                return { ...prevState, toBePassword: event.target.value };
-            });
-        }
+        setPassword((prevState) => {
+            return { ...prevState, toBePassword: event.target.value };
+        });
     };
 
     const handleChangeNewPasswordConfirm = (event) => {
-        if (password.toBePassword === event.target.value) {
-            setPassword((prevState) => {
-                return {
-                    ...prevState,
-                    confirmToBePassword: event.target.value,
-                };
-            });
-        }
+        setPassword((prevState) => {
+            return {
+                ...prevState,
+                confirmToBePassword: event.target.value,
+            };
+        });
     };
 
     const handleChangePassword = () => {
@@ -155,9 +161,14 @@ const PopUpItem = ({ item, socialType }) => {
                     type="email"
                     placeholder="이메일을 입력해주세요"
                     onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                 />
                 <PopUpButtonBox>
-                    <PopUpCancelButton>취소</PopUpCancelButton>
+                    <PopUpCancelButton
+                        onClick={() => onHandleClosePopUp("none")}
+                    >
+                        취소
+                    </PopUpCancelButton>
                     <PopUpButton onClick={handleUpdateEmail}>저장</PopUpButton>
                 </PopUpButtonBox>
             </>
@@ -168,26 +179,59 @@ const PopUpItem = ({ item, socialType }) => {
                 <PopUpSubTitle>현재 비밀번호</PopUpSubTitle>
                 <PopUpInput
                     type="password"
+                    name="password"
                     placeholder="비밀번호를 입력해주세요"
                     onChange={(e) => handleChangeCurrentPassword(e)}
+                    onFocus={(e) => setOnFocusInput(e.target.name)}
+                    value={password.asIsPassword}
                 />
+                {onFocusInput === "password" &&
+                validationPatterns.passwordRegex.test(password.asIsPassword) !==
+                    true ? (
+                    <PopUpErrorMessage>
+                        올바르지 않은 비밀번호 형식입니다.
+                    </PopUpErrorMessage>
+                ) : null}
                 <PopUpSubTitle>새로운 비밀번호</PopUpSubTitle>
                 <PopUpInput
                     type="password"
+                    name="newPassword"
                     placeholder="새로운 비밀번호를 입력해주세요"
                     onChange={(e) => handleChangeNewPassword(e)}
+                    onFocus={(e) => setOnFocusInput(e.target.name)}
+                    value={password.toBePassword}
                 />
+                {onFocusInput === "newPassword" &&
+                validationPatterns.passwordRegex.test(password.toBePassword) !==
+                    true ? (
+                    <PopUpErrorMessage>
+                        올바르지 않은 비밀번호 형식입니다.
+                    </PopUpErrorMessage>
+                ) : null}
                 <PopUpInput
                     type="password"
+                    name="confirmNewPassword"
                     placeholder="새로운 비밀번호를 다시 입력해주세요"
                     onChange={(e) => handleChangeNewPasswordConfirm(e)}
+                    onFocus={(e) => setOnFocusInput(e.target.name)}
+                    value={password.confirmToBePassword}
                 />
+                {onFocusInput === "confirmNewPassword" &&
+                password.toBePassword !== password.confirmToBePassword ? (
+                    <PopUpErrorMessage>
+                        비밀번호가 일치하지 않습니다.
+                    </PopUpErrorMessage>
+                ) : null}
                 <PopUpHint>
                     영문 대소문자, 특수문자, 숫자 중 3가지 이상으로 조합하여
                     8~20자로 입력해주세요.
                 </PopUpHint>
                 <PopUpButtonBox>
-                    <PopUpCancelButton>취소</PopUpCancelButton>
+                    <PopUpCancelButton
+                        onClick={() => onHandleClosePopUp("none")}
+                    >
+                        취소
+                    </PopUpCancelButton>
                     <PopUpButton onClick={handleChangePassword}>
                         저장
                     </PopUpButton>
@@ -200,8 +244,11 @@ const PopUpItem = ({ item, socialType }) => {
                 <PopUpSubTitle>닉네임</PopUpSubTitle>
                 <NicknameInput
                     type="text"
+                    name="nickname"
                     placeholder="닉네임을 입력해주세요"
                     onChange={(e) => setNickname(e.target.value)}
+                    value={nickname}
+                    onFocus={(e) => setOnFocusInput(e.target.name)}
                 />
                 <NicknameCheckButton
                     type="button"
@@ -209,8 +256,31 @@ const PopUpItem = ({ item, socialType }) => {
                 >
                     중복 확인
                 </NicknameCheckButton>
+                {onFocusInput === "nickname" &&
+                validationPatterns.nicknameRegex.test(nickname) !== true ? (
+                    <PopUpErrorMessage>
+                        올바르지 않은 닉네임 형식입니다.
+                    </PopUpErrorMessage>
+                ) : duplicateNickname !== "" ? (
+                    duplicateNickname !== "SUCCESS" ? (
+                        <PopUpErrorMessage>
+                            이미 사용중인 닉네임입니다.
+                        </PopUpErrorMessage>
+                    ) : (
+                        <PopUpSuccessMessage>
+                            사용 가능한 닉네임입니다.
+                        </PopUpSuccessMessage>
+                    )
+                ) : null}
+                <PopUpHint>
+                    영문 대소문자, 숫자, 한글을 조합하여 2~16자로 입력해주세요.
+                </PopUpHint>
                 <PopUpButtonBox>
-                    <PopUpCancelButton>취소</PopUpCancelButton>
+                    <PopUpCancelButton
+                        onClick={() => onHandleClosePopUp("none")}
+                    >
+                        취소
+                    </PopUpCancelButton>
                     <PopUpButton onClick={handleUpdateNickname}>
                         저장
                     </PopUpButton>
@@ -225,14 +295,28 @@ const PopUpItem = ({ item, socialType }) => {
                         <PopUpSubTitle>비밀번호</PopUpSubTitle>
                         <PopUpInput
                             type="password"
+                            name="deletePassword"
                             placeholder="회원 탈퇴를 위해 다시 한 번 인증해주세요"
                             onChange={(e) => setDeletePassword(e.target.value)}
+                            value={deletePassword}
+                            onFocus={(e) => setOnFocusInput(e.target.name)}
                         />
+                        {onFocusInput === "deletePassword" &&
+                        validationPatterns.passwordRegex.test(
+                            deletePassword
+                        ) !== true ? (
+                            <PopUpErrorMessage>
+                                올바르지 않은 비밀번호 형식입니다.
+                            </PopUpErrorMessage>
+                        ) : null}
                     </>
                 )}
-
                 <PopUpButtonBox>
-                    <PopUpCancelButton>취소</PopUpCancelButton>
+                    <PopUpCancelButton
+                        onClick={() => onHandleClosePopUp("none")}
+                    >
+                        취소
+                    </PopUpCancelButton>
                     <PopUpButton onClick={handleDeleteUser}>
                         탈퇴하기
                     </PopUpButton>
@@ -251,6 +335,10 @@ const UpdateUser = () => {
         email: "",
         nickname: "",
         socialType: "",
+        // memberId: "123444@k",
+        // email: "pwkc00@gmail.com",
+        // nickname: "testKakao",
+        // socialType: null,
     });
 
     const handleUpdateUserClick = (item) => {
@@ -258,8 +346,8 @@ const UpdateUser = () => {
         setClickItem(item);
     };
 
-    const handleClickBlur = () => {
-        setBlur("none");
+    const handleClosePopUp = (property) => {
+        setBlur(property);
     };
 
     useEffect(() => {
@@ -288,7 +376,7 @@ const UpdateUser = () => {
         <>
             <UpdateProfileBlur
                 style={{ display: blur }}
-                onClick={handleClickBlur}
+                onClick={() => handleClosePopUp("none")}
             />
             <PopUpBox style={{ display: blur }}>
                 <PopUpItem
@@ -299,6 +387,7 @@ const UpdateUser = () => {
                             ? true
                             : false
                     }
+                    onHandleClosePopUp={handleClosePopUp}
                 ></PopUpItem>
             </PopUpBox>
             <UpdateProfileBox>

@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import { Wrapper as UpdateWrapper } from "../../styles/components/mypage/Wrapper";
 import { Title as UpdateTitle } from "../../styles/components/mypage/Title";
 import UpdateUser from "../../containers/mypage/UpdateUser";

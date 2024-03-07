@@ -9,11 +9,17 @@ export const sendGoogleAuthCode = async (code) => {
                 code: code,
             },
         });
+        if (response.data.data === undefined) {
+            return response.data;
+        } else {
+            setJWTToken(response.data.data);
+            return "onExists";
+        }
         // if (response.data.accessToken !== null) {
         //     setJWTToken(response.data.data);
         //     return "onExists";
         // } else {
-        return response.data;
+        // return response.data;
         // }
     } catch (error) {
         console.log("Error sendGoogleAuthCode response");
@@ -34,12 +40,20 @@ export const sendNaverAuthCode = async (code) => {
                 code: code,
             },
         });
+        console.log(response.data);
+        console.log(response.data.data);
+        if (response.data.data === undefined) {
+            return response.data;
+        } else {
+            setJWTToken(response.data.data);
+            return "onExists";
+        }
         // console.log("NaverCode", JSON.parse(response));
         // if (response.data.data.accessToken) {
         //     setJWTToken(response.data.data);
         //     return "onExists";
         // } else {
-        return response.data;
+        // return response.data;
         // }
     } catch (error) {
         console.log("Error sendNaverAuthCode response");
@@ -59,11 +73,17 @@ export const sendKakaoAuthCode = async (code) => {
                 code: code,
             },
         });
+        if (response.data.data === undefined) {
+            return response.data;
+        } else {
+            setJWTToken(response.data.data);
+            return "onExists";
+        }
         // if (response.data.data.accessToken) {
         //     setJWTToken(response.data.data);
         //     return "onExists";
         // } else {
-        return response.data;
+        // return response.data;
         // }
     } catch (error) {
         console.log("Error sendKakaoAuthCode response");
@@ -79,10 +99,10 @@ export const sendKakaoAuthCode = async (code) => {
 export const signUpSocialUser = async (userInfo, social) => {
     try {
         const response = await Axios.post(
-            `/api/oauth/${social}/nickname`,
+            `/api/oauth/${social}/signup`,
             userInfo
         );
-        setJWTToken(response.data);
+        setJWTToken(response.data.data);
         window.location.replace("/");
     } catch (error) {
         console.log(`Error sendReturn${social}UserInfo response`);

@@ -14,7 +14,7 @@ export const searchUser = async () => {
                 "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
             },
             params: {
-                id: jwtToken.id,
+                member_id: jwtToken.memberId,
             },
         });
         return response.data.data;
@@ -25,8 +25,6 @@ export const searchUser = async () => {
             console.log(error.response.status);
             console.log(error.response.headers);
         }
-        // window.location.replace("/login");
-        throw error;
     }
 };
 
@@ -34,7 +32,7 @@ export const updateEmail = async (email) => {
     console.log(email);
     try {
         await Axios.put(
-            "/api/members/email/update",
+            "/api/members/emails",
             { email: email },
             {
                 headers: {
@@ -42,11 +40,11 @@ export const updateEmail = async (email) => {
                     "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
                 },
                 params: {
-                    id: jwtToken.id,
+                    member_id: jwtToken.memberId,
                 },
             }
         );
-        window.location.replace(`/members/${jwtToken.id}`);
+        window.location.replace(`/members/${jwtToken.memberId}`);
     } catch (error) {
         console.log("Error updateEmail");
         if (error.response) {
@@ -60,7 +58,7 @@ export const updateEmail = async (email) => {
 export const updateNickname = async (nickname) => {
     try {
         await Axios.put(
-            "/api/members/nickname/update",
+            "/api/members/nicknames",
             { nickName: nickname },
             {
                 headers: {
@@ -68,11 +66,11 @@ export const updateNickname = async (nickname) => {
                     "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
                 },
                 params: {
-                    id: jwtToken.id,
+                    member_id: jwtToken.memberId,
                 },
             }
         );
-        window.location.replace(`/members/${jwtToken.id}`);
+        window.location.replace(`/members/${jwtToken.memberId}`);
     } catch (error) {
         console.log("Error updateNickname");
         if (error.response) {
@@ -87,7 +85,7 @@ export const updatePassword = async (password) => {
     try {
         console.log(password);
         await Axios.put(
-            "/api/members/password/change",
+            "/api/members/passwords",
             {
                 asIsPassword: password.asIsPassword,
                 toBePassword: password.toBePassword,
@@ -99,11 +97,11 @@ export const updatePassword = async (password) => {
                     "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
                 },
                 params: {
-                    id: jwtToken.id,
+                    member_id: jwtToken.memberId,
                 },
             }
         );
-        window.location.replace(`/members/${jwtToken.id}`);
+        window.location.replace(`/members/${jwtToken.memberId}`);
     } catch (error) {
         console.log("Error updatePassword");
         if (error.response) {
@@ -116,13 +114,13 @@ export const updatePassword = async (password) => {
 
 export const deleteUser = async (password) => {
     try {
-        await Axios.delete("/api/members/delete", {
+        await Axios.delete("/api/members", {
             headers: {
                 Authorization: `Bearer ${jwtToken.accessToken}`,
                 "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
             },
             params: {
-                id: jwtToken.id,
+                member_id: jwtToken.memberId,
             },
             data: {
                 password: password,
@@ -142,13 +140,13 @@ export const deleteUser = async (password) => {
 
 export const deleteSocialUser = async () => {
     try {
-        await Axios.delete("/api/members/social", {
+        await Axios.delete("/api/social-members", {
             headers: {
                 Authorization: `Bearer ${jwtToken.accessToken}`,
                 "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
             },
             params: {
-                id: jwtToken.id,
+                member_id: jwtToken.memberId,
             },
         });
         localStorage.removeItem("jwt");

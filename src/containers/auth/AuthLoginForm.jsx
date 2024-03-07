@@ -35,12 +35,18 @@ const AuthLoginForm = () => {
     const [regexPassword, setRegexPassword] = useState(false);
 
     const handleLoginSubmit = async (data) => {
-        const submitData = {
-            memberId: data.memberId,
-            password: data.password,
-        };
-        const result = await submitLogin(submitData);
-        console.log(result);
+        if (
+            validationPatterns.memberIdRegex.test(data.memberId) !== true ||
+            validationPatterns.passwordRegex.test(data.password) !== true
+        ) {
+            alert("아이디 또는 비밀번호 형식을 확인해주세요.");
+        } else {
+            const submitData = {
+                memberId: data.memberId,
+                password: data.password,
+            };
+            await submitLogin(submitData);
+        }
     };
 
     const inputData = useWatch({

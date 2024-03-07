@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { Form as SocialSignUpForm } from "../../styles/components/auth/Form";
 import { Fieldset as SocialSignUpFieldset } from "../../styles/components/auth/Fieldset";
@@ -11,7 +11,7 @@ import { ErrorMessage as SocialSignUpErrorMessage } from "../../styles/component
 import { SuccessMessage as SocialSignUpSuccessMessage } from "../../styles/components/auth/SuccessMessage";
 import { Hint as SocialSignUpHint } from "../../styles/components/auth/Hint";
 import { checkNickname } from "../../services/auth/signUp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signUpSocialUser } from "../../services/auth/socialSignUp";
 
 import validationPatterns from "../../utils/validationPatterns";
@@ -25,8 +25,9 @@ const SubmitButton = styled(SocialSignUpButton)`
 
 const AuthSocialSignUpForm = () => {
     const { addInfo, social } = useLocation().state;
-    const { register, handleSubmit, getValues } = useForm();
+    const { register, handleSubmit, getValues, control } = useForm();
 
+    const [onFocusInput, setOnFocusInput] = useState("");
     const [duplicateNickname, setDuplicateNickname] = useState("");
     const handleSignUpSubmit = async (data) => {
         if (duplicateNickname === "SUCCESS") {
@@ -42,6 +43,15 @@ const AuthSocialSignUpForm = () => {
             alert("닉네임 중복 확인");
         }
     };
+
+    const inputData = useWatch({
+        control,
+        name: onFocusInput,
+    });
+
+    useEffect(() => {
+        setDuplicateNickname("");
+    }, [inputData]);
 
     const handleSignUpCheckNickname = async () => {
         const response = await checkNickname(getValues("nickname"));
@@ -70,6 +80,7 @@ const AuthSocialSignUpForm = () => {
                                     ? "#ff5a5a"
                                     : "#d9d9d9",
                         }}
+                        onFocus={(e) => setOnFocusInput(e.target.name)}
                     />
                     <SocialSignUpButton
                         type="button"

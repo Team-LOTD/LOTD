@@ -26,6 +26,9 @@ export const PopUpInput = (props) => {
             onChange={props.onChange}
             placeholder={props.placeholder}
             type={props.type}
+            onFocus={props.onFocus}
+            name={props.name}
+            value={props.value}
         >
             {props.children}
         </StyledPopUpInput>
