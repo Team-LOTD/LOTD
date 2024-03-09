@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/toastui-editor.css";
@@ -16,9 +16,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 import { uploadImageFile } from "../../services/posts/testS3";
-import { savePosts, searchPosts } from "../../services/posts/posts";
+import { savePosts, updatePosts } from "../../services/posts/posts";
 
-const CONTENT_KEY = "CONTENT_KEY";
+// const CONTENT_KEY = "CONTENT_KEY";
 
 const editorInitialValue = "";
 
@@ -27,50 +27,48 @@ const PostsForm = () => {
     const [title, setTitle] = useState("");
     const [imageURL, setImageURL] = useState("");
 
-    const { post_id } = useParams();
+    const location = useLocation();
 
-    useEffect(() => {
-        async function loadPost() {
-            if (post_id !== undefined) {
-                const response = await searchPosts(post_id);
-                console.log(response);
-            }
-        }
-        loadPost();
-    }, [post_id]);
+    const data = location.state?.data;
 
     const editRef = useRef(null);
 
     const navigate = useNavigate();
 
-    const handleDraft = () => {
-        const markDownContent = editRef.current.getInstance().getMarkdown();
-        // const htmlContent = editRef.current.getInstance().getHTML();
+    // const handleDraft = () => {
+    //     const markDownContent = editRef.current.getInstance().getMarkdown();
+    //     // const htmlContent = editRef.current.getInstance().getHTML();
 
-        localStorage.setItem(CONTENT_KEY, markDownContent);
-    };
+    //     localStorage.setItem(CONTENT_KEY, markDownContent);
+    // };
 
-    const handleDeleteDraft = () => {
-        localStorage.removeItem(CONTENT_KEY);
+    // const handleDeleteDraft = () => {
+    //     localStorage.removeItem(CONTENT_KEY);
 
-        editRef.current.getInstance().setMarkdown("");
-    };
+    //     editRef.current.getInstance().setMarkdown("");
+    // };
 
     const handleSubmitPost = async () => {
+        const submitData = {
+            title: title,
+            image: null,
+            // image: imageURL,
+            content: editRef.current.getInstance().getMarkdown(),
+            categoryId: category,
+        };
         if (category === "") {
             alert("카테고리 선택");
         } else if (title === "") {
             alert("타이틀 입력");
         } else if (editRef.current.getInstance().getMarkdown().length <= 0) {
             alert("본문 입력");
+        } else if (data) {
+            const response = await updatePosts({
+                ...submitData,
+                post_id: data.post_id,
+            });
+            console.log(response);
         } else {
-            const submitData = {
-                title: title,
-                image: null,
-                // image: imageURL,
-                content: editRef.current.getInstance().getMarkdown(),
-                categoryId: category,
-            };
             const response = await savePosts(submitData);
             console.log(response);
         }
@@ -81,15 +79,14 @@ const PostsForm = () => {
         const jwtToken = JSON.parse(localStorage.getItem("jwt"));
 
         if (!jwtToken) {
-            // alert("잘못된 접근입니다. 로그인 후 이용해주세요");
-            // window.location.replace("/login");
-        } else {
-            const item = localStorage.getItem(CONTENT_KEY);
-            if (item) {
-                editRef.current.getInstance().setMarkdown(item);
-            }
+            alert("잘못된 접근입니다. 로그인 후 이용해주세요");
+            window.location.replace("/login");
+        } else if (data) {
+            setCategory(data.category_id);
+            setTitle(data.title);
+            editRef.current.getInstance().setMarkdown(data.content);
         }
-    }, []);
+    }, [data]);
 
     return (
         <>
@@ -152,8 +149,8 @@ const PostsForm = () => {
                         },
                     }}
                 />
-                <button onClick={handleDraft}>임시저장</button>
-                <button onClick={handleDeleteDraft}>임시저장제거</button>
+                {/* <button onClick={handleDraft}>임시저장</button>
+                <button onClick={handleDeleteDraft}>임시저장제거</button> */}
                 <button onClick={handleSubmitPost}>저장</button>
                 <button onClick={() => navigate(-1)}>취소</button>
             </div>
