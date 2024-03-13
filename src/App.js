@@ -10,10 +10,11 @@ import KakaoRedirect from "./routes/auth/KakaoRedirect";
 import NaverRedirect from "./routes/auth/NaverRedirect";
 import GoogleRedirect from "./routes/auth/GoogleRedirect";
 import SocialSignUp from "./routes/auth/SocialSignUp";
-import Posts from "./routes/pages/Posts";
-import View from "./routes/pages/PostsView";
-import Update from "./components/posts/Update";
-import Category from "./components/posts/Category";
+import PostsCreate from "./routes/pages/PostsCreate";
+import PostsEdit from "./routes/pages/PostsEdit";
+import PostsList from "./routes/pages/PostsList";
+import PostsView from "./routes/pages/PostsView";
+import PostsSearchResult from "./routes/pages/PostsSearchResult";
 
 function App() {
     return (
@@ -39,10 +40,17 @@ function App() {
                     <Route path="/members/addinfo" element={<SocialSignUp />} />
                     <Route path="/members/:id" element={<MyPage />} />
                     <Route path="/signup/result" element={<Result />} />
-                    <Route path="/posts" element={<Posts />} />
-                    <Route path="/posts/:post_id" element={<View />} />
-                    <Route path="/posts/update/:post_id" element={<Update />} />
-                    <Route path="/category" element={<Category />} />
+                    <Route path="/posts/create" element={<PostsCreate />} />
+                    <Route
+                        path="/posts/edit/:post_id"
+                        element={<PostsEdit />}
+                    />
+                    <Route path="/posts/list" element={<PostsList />} />
+                    <Route path="/posts/:post_id" element={<PostsView />} />
+                    <Route
+                        path="/posts/search"
+                        element={<PostsSearchResult />}
+                    />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>

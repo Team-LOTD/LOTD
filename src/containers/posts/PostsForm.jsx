@@ -12,11 +12,15 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 
 import { uploadImageFile } from "../../services/posts/testS3";
 import { savePosts, updatePosts } from "../../services/posts/posts";
+
+import { PostsFormBox } from "../../styles/components/posts/PostsFormBox";
+import { PostsInput } from "../../styles/components/posts/PostsInput";
+import { PostsButton } from "../../styles/components/posts/PostsButton";
+import { POstsControlBox } from "../../styles/components/posts/PostsControlBox";
+import { PostsBackImg } from "../../styles/components/posts/PostsBackImg";
 
 // const CONTENT_KEY = "CONTENT_KEY";
 
@@ -75,49 +79,64 @@ const PostsForm = () => {
         console.log("aa");
     };
 
-    useEffect(() => {
-        const jwtToken = JSON.parse(localStorage.getItem("jwt"));
+    // useEffect(() => {
+    //     const jwtToken = JSON.parse(localStorage.getItem("jwt"));
 
-        if (!jwtToken) {
-            alert("잘못된 접근입니다. 로그인 후 이용해주세요");
-            window.location.replace("/login");
-        } else if (data) {
-            setCategory(data.category_id);
-            setTitle(data.title);
-            editRef.current.getInstance().setMarkdown(data.content);
-        }
-    }, [data]);
+    //     if (!jwtToken) {
+    //         alert("잘못된 접근입니다. 로그인 후 이용해주세요");
+    //         window.location.replace("/login");
+    //     } else if (data) {
+    //         setCategory(data.category_id);
+    //         setTitle(data.title);
+    //         editRef.current.getInstance().setMarkdown(data.content);
+    //     }
+    // }, [data]);
 
     return (
         <>
-            <div>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                    <InputLabel id="select-category">Category</InputLabel>
-                    <Select
-                        labelId="select-category"
-                        id="select-category"
-                        value={category}
-                        label="Category"
-                        onChange={(e) => setCategory(e.target.value)}
-                    >
-                        <MenuItem value={1}>자유게시판</MenuItem>
-                        <MenuItem value={2}>OOTD</MenuItem>
-                        <MenuItem value={3}>패션</MenuItem>
-                    </Select>
-                </FormControl>
-                <Box
-                    component="form"
-                    sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
-                    noValidate
-                    autoComplete="off"
+            <POstsControlBox>
+                <PostsBackImg
+                    src={process.env.PUBLIC_URL + "/images/arrow-right.png"}
+                    alt="navigateBack"
+                    onClick={() => navigate(-1)}
+                />
+                <PostsButton onClick={handleSubmitPost}>등록하기</PostsButton>
+            </POstsControlBox>
+
+            <PostsFormBox>
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "860px",
+                    }}
                 >
-                    <TextField
-                        id="outlined-basic"
-                        label="Title"
-                        variant="outlined"
+                    <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
+                        <InputLabel id="select-category">게시판</InputLabel>
+                        <Select
+                            labelId="select-category"
+                            id="select-category"
+                            value={category}
+                            label="Category"
+                            onChange={(e) => setCategory(e.target.value)}
+                            sx={{
+                                boxShadow: "none",
+                                ".MuiOutlinedInput-notchedOutline": {
+                                    border: 0,
+                                },
+                            }}
+                        >
+                            <MenuItem value={1}>자유게시판</MenuItem>
+                            <MenuItem value={2}>OOTD</MenuItem>
+                            <MenuItem value={3}>패션</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <PostsInput
+                        type="text"
+                        placeholder="제목을 입력하세요"
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                </Box>
+                </div>
                 <Editor
                     initialValue={editorInitialValue}
                     ref={editRef}
@@ -149,11 +168,10 @@ const PostsForm = () => {
                         },
                     }}
                 />
+
                 {/* <button onClick={handleDraft}>임시저장</button>
                 <button onClick={handleDeleteDraft}>임시저장제거</button> */}
-                <button onClick={handleSubmitPost}>저장</button>
-                <button onClick={() => navigate(-1)}>취소</button>
-            </div>
+            </PostsFormBox>
         </>
     );
 };

@@ -1,6 +1,6 @@
 import PostsForm from "../../containers/posts/PostsForm";
 
-const Update = () => {
+const Create = () => {
     return (
         <>
             <PostsForm></PostsForm>
@@ -8,4 +8,4 @@ const Update = () => {
     );
 };
 
-export default Update;
+export default Create;
