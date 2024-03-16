@@ -1,6 +1,6 @@
 import Create from "../../components/posts/Create";
 
-const PostsWrite = () => {
+const CreatePost = () => {
     return (
         <>
             <Create></Create>
@@ -8,4 +8,4 @@ const PostsWrite = () => {
     );
 };
 
-export default PostsWrite;
+export default CreatePost;

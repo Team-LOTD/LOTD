@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const StyledPostsInput = styled.input`
@@ -16,15 +17,17 @@ const StyledPostsInput = styled.input`
     }
 `;
 
-export const PostsInput = (props) => {
+export const PostsInput = React.forwardRef((props, ref) => {
     return (
         <StyledPostsInput
             className={props.className}
             type={props.type}
             placeholder={props.placeholder}
             onChange={props.onChange}
+            value={props.value}
+            ref={ref}
         >
             {props.children}
         </StyledPostsInput>
     );
-};
+});

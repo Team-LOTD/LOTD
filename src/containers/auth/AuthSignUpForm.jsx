@@ -59,8 +59,8 @@ const AuthSignUpForm = () => {
                 memberIdChecked: duplicateMemberId === "SUCCESS" ? true : false,
                 password: data.password,
                 confirmPassword: data.passwordConfirm,
-                nickName: data.nickname,
-                nickNameChecked: duplicateNickname === "SUCCESS" ? true : false,
+                nickname: data.nickname,
+                nicknameChecked: duplicateNickname === "SUCCESS" ? true : false,
             };
             await submitSignUp(submitData);
         } else {

@@ -5,16 +5,16 @@ import Login from "./routes/pages/Login";
 import SignUp from "./routes/pages/SignUp";
 import MyPage from "./routes/pages/MyPage";
 import NotFound from "./routes/pages/NotFound";
-import Result from "./routes/pages/Result";
 import KakaoRedirect from "./routes/auth/KakaoRedirect";
 import NaverRedirect from "./routes/auth/NaverRedirect";
 import GoogleRedirect from "./routes/auth/GoogleRedirect";
 import SocialSignUp from "./routes/auth/SocialSignUp";
-import PostsCreate from "./routes/pages/PostsCreate";
-import PostsEdit from "./routes/pages/PostsEdit";
+import CreatePost from "./routes/pages/PostsCreate";
+import EditPost from "./routes/pages/PostsEdit";
 import PostsList from "./routes/pages/PostsList";
-import PostsView from "./routes/pages/PostsView";
+import ViewPost from "./routes/pages/PostsView";
 import PostsSearchResult from "./routes/pages/PostsSearchResult";
+import PrivateRouteGroup from "./routes/auth/PrivateRouteGroup";
 
 function App() {
     return (
@@ -38,15 +38,13 @@ function App() {
                         element={<GoogleRedirect />}
                     />
                     <Route path="/members/addinfo" element={<SocialSignUp />} />
-                    <Route path="/members/:id" element={<MyPage />} />
-                    <Route path="/signup/result" element={<Result />} />
-                    <Route path="/posts/create" element={<PostsCreate />} />
-                    <Route
-                        path="/posts/edit/:post_id"
-                        element={<PostsEdit />}
-                    />
+                    <Route element={<PrivateRouteGroup />}>
+                        <Route path="/members/:id" element={<MyPage />} />
+                        <Route path="/posts/create" element={<CreatePost />} />
+                        <Route path="/posts/edit" element={<EditPost />} />
+                    </Route>
                     <Route path="/posts/list" element={<PostsList />} />
-                    <Route path="/posts/:post_id" element={<PostsView />} />
+                    <Route path="/posts" element={<ViewPost />} />
                     <Route
                         path="/posts/search"
                         element={<PostsSearchResult />}

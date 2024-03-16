@@ -59,7 +59,7 @@ export const updateNickname = async (nickname) => {
     try {
         await Axios.put(
             "/api/members/nicknames",
-            { nickName: nickname },
+            { nickname: nickname },
             {
                 headers: {
                     Authorization: `Bearer ${jwtToken.accessToken}`,

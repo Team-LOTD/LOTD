@@ -29,16 +29,90 @@ export const savePosts = async (submitData) => {
     }
 };
 
-export const loadPosts = async (post_id) => {
+const sample = {
+    postId: 1,
+    categoryId: 1,
+    memberId: "asdf1",
+    title: "testTitle",
+    content: "testContent",
+    image: "testImgSrc",
+    commentsCount: 1,
+    likeCount: 2,
+    hits: 3,
+    creator: "string",
+    commentList: [{}],
+    createdDate: "2024-03-15T16:01:44.424Z",
+    nickname: "testNickname",
+};
+
+const sample2 = {
+    postId: 1,
+    categoryId: 1,
+    memberId: "asdf1",
+    title: "testTitle",
+    content: "testContent",
+    image: "testImgSrc",
+    commentsCount: 1,
+    likeCount: 2,
+    hits: 3,
+    creator: "string",
+    commentList: [{}],
+    createdDate: "2024-03-15T16:01:44.424Z",
+    nickname: "testNickname",
+};
+
+const sampleArray = [sample, sample2];
+
+export const loadPosts = async (post_id, category_id) => {
+    // try {
+    //     const response = await Axios.get("/api/posts", {
+    //         params: {
+    //             post_id: post_id,
+    //             category_id: category_id,
+    //         },
+    //     });
+    //     return response.data;
+    // } catch (error) {
+    //     console.log("Error viewPosts Data");
+    //     if (error.response) {
+    //         console.log(error.response.data);
+    //         console.log(error.response.status);
+    //         console.log(error.response.headers);
+    //     }
+    // }
+    return sample;
+};
+
+export const loadPostsList = async (category_id) => {
+    // try {
+    //     const response = await Axios.get("/api/posts", {
+    //         params: {
+    //             category_id: category_id,
+    //         },
+    //     });
+    //     return response.data;
+    // } catch (error) {
+    //     console.log("Error loadPostsList");
+    //     if (error.response) {
+    //         console.log(error.response.data);
+    //         console.log(error.response.status);
+    //         console.log(error.response.headers);
+    //     }
+    // }
+    return sampleArray;
+};
+
+export const loadPostsSearchList = async (searchType, text) => {
     try {
-        const response = await Axios.get("/api/posts", {
+        const response = await Axios.get("/api/boards", {
             params: {
-                post_id: post_id,
+                searchType: searchType,
+                text: text,
             },
         });
         return response.data;
     } catch (error) {
-        console.log("Error viewPosts Data");
+        console.log("Error loadPostsSearchList");
         if (error.response) {
             console.log(error.response.data);
             console.log(error.response.status);

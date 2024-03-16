@@ -35,9 +35,8 @@ const AuthSocialSignUpForm = () => {
             const submitData = {
                 [socialMemberId]: addInfo.memberId,
                 email: addInfo.email,
-                nickName: data.nickname,
+                nickname: data.nickname,
             };
-            console.log(submitData);
             await signUpSocialUser(submitData, social);
         } else {
             alert("닉네임 중복 확인");

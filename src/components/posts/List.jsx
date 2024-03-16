@@ -1,20 +1,11 @@
-import { useEffect } from "react";
-
-import Axios from "axios";
+import PostsCategoryList from "../../containers/posts/PostsCategoryList";
 
 const List = () => {
-    useEffect(() => {
-        async function testAA() {
-            const response = Axios.get("/api/posts", {
-                params: {
-                    category_id: 0,
-                },
-            });
-            console.log(response);
-        }
-        testAA();
-    }, []);
-    return null;
+    return (
+        <>
+            <PostsCategoryList></PostsCategoryList>
+        </>
+    );
 };
 
 export default List;

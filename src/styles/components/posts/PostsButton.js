@@ -16,10 +16,16 @@ const StyledPostsButton = styled.button`
     cursor: pointer;
 `;
 
-export const PostsButton = (props) => {
+const PostsButton = (props) => {
     return (
-        <StyledPostsButton className={props.className} onClick={props.onClick}>
+        <StyledPostsButton
+            className={props.className}
+            onClick={props.onClick}
+            style={props.style}
+        >
             {props.children}
         </StyledPostsButton>
     );
 };
+
+export default PostsButton;

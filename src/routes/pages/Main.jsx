@@ -6,7 +6,7 @@ function Main() {
     return (
         <div>
             <div className="test">asdfw</div>
-            <Link to={"/posts"}>글쓰기</Link>
+            <Link to={"/posts/create"}>글쓰기</Link>
         </div>
     );
 }

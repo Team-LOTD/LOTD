@@ -335,10 +335,6 @@ const UpdateUser = () => {
         email: "",
         nickname: "",
         socialType: "",
-        // memberId: "123444@k",
-        // email: "pwkc00@gmail.com",
-        // nickname: "testKakao",
-        // socialType: null,
     });
 
     const handleUpdateUserClick = (item) => {
@@ -359,7 +355,7 @@ const UpdateUser = () => {
                         ...prevState,
                         memberId: response.memberId,
                         email: response.email,
-                        nickname: response.nickName,
+                        nickname: response.nickname,
                         socialType: response.socialType,
                     };
                 });
@@ -368,10 +364,6 @@ const UpdateUser = () => {
         getUserInfo();
     }, []);
 
-    useEffect(() => {
-        console.log(userInfo);
-    }, [userInfo]);
-
     return (
         <>
             <UpdateProfileBlur
@@ -379,16 +371,18 @@ const UpdateUser = () => {
                 onClick={() => handleClosePopUp("none")}
             />
             <PopUpBox style={{ display: blur }}>
-                <PopUpItem
-                    item={clickItem}
-                    socialType={
-                        userInfo.socialType !== "" &&
-                        userInfo.socialType !== null
-                            ? true
-                            : false
-                    }
-                    onHandleClosePopUp={handleClosePopUp}
-                ></PopUpItem>
+                {clickItem === "" ? null : (
+                    <PopUpItem
+                        item={clickItem}
+                        socialType={
+                            userInfo.socialType !== "" &&
+                            userInfo.socialType !== null
+                                ? true
+                                : false
+                        }
+                        onHandleClosePopUp={handleClosePopUp}
+                    ></PopUpItem>
+                )}
             </PopUpBox>
             <UpdateProfileBox>
                 <UpdateProfileImg

@@ -1,6 +1,6 @@
 import View from "../../components/posts/View";
 
-const PostsView = () => {
+const ViewPost = () => {
     return (
         <>
             <View></View>
@@ -8,4 +8,4 @@ const PostsView = () => {
     );
 };
 
-export default PostsView;
+export default ViewPost;

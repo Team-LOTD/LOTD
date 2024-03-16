@@ -1,6 +1,6 @@
 import Edit from "../../components/posts/Edit";
 
-const PostsEdit = () => {
+const EditPost = () => {
     return (
         <>
             <Edit></Edit>
@@ -8,4 +8,4 @@ const PostsEdit = () => {
     );
 };
 
-export default PostsEdit;
+export default EditPost;
