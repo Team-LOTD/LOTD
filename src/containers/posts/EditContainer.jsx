@@ -35,7 +35,7 @@ const EditContainer = () => {
                         member_id: response.memberId,
                         viewCount: response.hits,
                         date: response.createdDate,
-                        content: response.title,
+                        content: response.content,
                         likeCount: response.likeCount,
                         commentCount: response.commentCount,
                         post_id: response.postId,

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/header/Header";
+import Header from "./components/common/Header";
 import Main from "./routes/pages/Main";
 import Login from "./routes/pages/Login";
 import SignUp from "./routes/pages/SignUp";
@@ -15,16 +15,41 @@ import PostsList from "./routes/pages/PostsList";
 import ViewPost from "./routes/pages/PostsView";
 import PostsSearchResult from "./routes/pages/PostsSearchResult";
 import PrivateRouteGroup from "./routes/auth/PrivateRouteGroup";
+import SideBar from "./components/common/SideBar";
 
 function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Header />
                 <Routes>
-                    <Route path="/" element={<Main />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route element={<Header />}>
+                        <Route element={<SideBar />}>
+                            <Route path="/" element={<Main />} />
+                            <Route path="/signup" element={<SignUp />} />
+                            <Route path="/login" element={<Login />} />
+
+                            <Route
+                                path="/members/addinfo"
+                                element={<SocialSignUp />}
+                            />
+
+                            <Route path="/posts/list" element={<PostsList />} />
+                            <Route path="/posts" element={<ViewPost />} />
+                            <Route
+                                path="/posts/search"
+                                element={<PostsSearchResult />}
+                            />
+                            <Route path="*" element={<NotFound />} />
+                        </Route>
+                        <Route element={<PrivateRouteGroup />}>
+                            <Route path="/members/:id" element={<MyPage />} />
+                            <Route
+                                path="/posts/create"
+                                element={<CreatePost />}
+                            />
+                            <Route path="/posts/edit" element={<EditPost />} />
+                        </Route>
+                    </Route>
                     <Route
                         path="/oauth/redirected/kakao"
                         element={<KakaoRedirect />}
@@ -37,19 +62,6 @@ function App() {
                         path="/oauth/redirected/google"
                         element={<GoogleRedirect />}
                     />
-                    <Route path="/members/addinfo" element={<SocialSignUp />} />
-                    <Route element={<PrivateRouteGroup />}>
-                        <Route path="/members/:id" element={<MyPage />} />
-                        <Route path="/posts/create" element={<CreatePost />} />
-                        <Route path="/posts/edit" element={<EditPost />} />
-                    </Route>
-                    <Route path="/posts/list" element={<PostsList />} />
-                    <Route path="/posts" element={<ViewPost />} />
-                    <Route
-                        path="/posts/search"
-                        element={<PostsSearchResult />}
-                    />
-                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
         </div>

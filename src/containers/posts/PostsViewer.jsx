@@ -79,7 +79,7 @@ const PostsViewer = () => {
                         likeCount: response.likeCount,
                         commentsCount: response.commentsCount,
                         postId: response.postId,
-                        nickname: response.nickname,
+                        nickname: response.creator,
                     };
                 });
             } catch (error) {

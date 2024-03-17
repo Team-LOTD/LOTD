@@ -52,7 +52,7 @@ const PostsForm = ({ postData }) => {
     const handleSubmitPost = async () => {
         const submitData = {
             title: title,
-            image: null,
+            image: "testURL",
             // image: imageURL,
             content: editRef.current.getInstance().getMarkdown(),
             categoryId: category,
@@ -65,8 +65,11 @@ const PostsForm = ({ postData }) => {
         } else if (editRef.current.getInstance().getMarkdown().length <= 0) {
             alert("본문 입력");
         } else {
-            if (Object.keys(postData).length !== 0 && postData.post_id !== 0) {
-                const response = await updatePosts(submitData);
+            if (postData && Object.keys(postData).length !== 0) {
+                const response = await updatePosts({
+                    ...submitData,
+                    post_id: postData.post_id,
+                });
                 console.log(response);
             } else {
                 const response = await savePosts(submitData);
@@ -82,6 +85,7 @@ const PostsForm = ({ postData }) => {
             setTitle(postData.title);
             editRef.current.getInstance().setMarkdown(postData.content);
         }
+        console.log(postData);
     }, [postData]);
 
     return (

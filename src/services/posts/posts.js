@@ -7,9 +7,6 @@ export const savePosts = async (submitData) => {
         const sendPostData = {
             ...submitData,
             memberId: jwtToken.memberId,
-            commentsCount: 0,
-            likeCount: 0,
-            hits: 0,
         };
         console.log(sendPostData);
         const response = await Axios.post("/api/posts", sendPostData, {
@@ -18,6 +15,8 @@ export const savePosts = async (submitData) => {
                 "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
             },
         });
+        console.log(response.data);
+        window.location.href = `/posts?post_id=${response.data.postId}&category_id=${response.data.categoryId}`;
         return response;
     } catch (error) {
         console.log("Error savePosts");
@@ -64,23 +63,28 @@ const sample2 = {
 const sampleArray = [sample, sample2];
 
 export const loadPosts = async (post_id, category_id) => {
-    // try {
-    //     const response = await Axios.get("/api/posts", {
-    //         params: {
-    //             post_id: post_id,
-    //             category_id: category_id,
-    //         },
-    //     });
-    //     return response.data;
-    // } catch (error) {
-    //     console.log("Error viewPosts Data");
-    //     if (error.response) {
-    //         console.log(error.response.data);
-    //         console.log(error.response.status);
-    //         console.log(error.response.headers);
-    //     }
-    // }
-    return sample;
+    console.log(post_id, category_id);
+    try {
+        const response = await Axios.get("/api/posts", {
+            params: {
+                post_id: post_id,
+                category_id: category_id,
+            },
+            headers: {
+                Authorization: `Bearer ${jwtToken.accessToken}`,
+                "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
+            },
+        });
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.log("Error viewPosts Data");
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+    }
 };
 
 export const loadPostsList = async (category_id) => {
@@ -122,6 +126,7 @@ export const loadPostsSearchList = async (searchType, text) => {
 };
 
 export const updatePosts = async (updateData) => {
+    console.log(updateData);
     try {
         const response = await Axios.put("/api/posts", updateData, {
             params: {
@@ -133,7 +138,7 @@ export const updatePosts = async (updateData) => {
             },
         });
         console.log(response.data);
-        window.location.href = `/posts?post_id=${updateData.post_id}`;
+        window.location.href = `/posts?post_id=${updateData.post_id}&category_id=${updateData.categoryId}`;
     } catch (error) {
         console.log("Error updatePosts Data");
         if (error.response) {
