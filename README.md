@@ -1,5 +1,5 @@
 <p align="center">
-  <img src= "https://github.com/Team-LOTD/backend/assets/73388615/555fa75b-210e-42fd-911f-7da5211f6673"/>
+  <img src="https://github.com/Team-LOTD/frontend/assets/93576045/25dee207-62b8-4eb1-a68d-794697e636b2"/>
 </p>
 
 ## 목차
