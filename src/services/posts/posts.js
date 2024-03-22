@@ -46,7 +46,7 @@ const sample = {
 
 const sample2 = {
     postId: 1,
-    categoryId: 1,
+    categoryId: 2,
     memberId: "asdf1",
     title: "testTitle",
     content: "testContent",
@@ -87,11 +87,46 @@ export const loadPosts = async (post_id, category_id) => {
     }
 };
 
-export const loadPostsList = async (category_id) => {
+export const loadPostsList = async (data) => {
+    // if (data.categoryId !== undefined) {
     // try {
-    //     const response = await Axios.get("/api/posts", {
+    //     const response = await Axios.get("/api/boards", {
     //         params: {
-    //             category_id: category_id,
+    //             category_id: data.categoryId,
+
+    //         },
+    //     });
+    //     return response.data;
+    // } catch (error) {
+    //     console.log("Error loadPostsList-categoryId");
+    //     if (error.response) {
+    //         console.log(error.response.data);
+    //         console.log(error.response.status);
+    //         console.log(error.response.headers);
+    //     }
+    // }
+    // } else if (data.searchType !== undefined && data.text !== undefined) {
+    //  try {
+    //     const response = await Axios.get("/api/boards", {
+    //         params: {
+    //             search_type: data.searchType,
+    //             text: data.text
+    //         },
+    //     });
+    //     return response.data;
+    // } catch (error) {
+    //     console.log("Error loadPostsList-categoryId");
+    //     if (error.response) {
+    //         console.log(error.response.data);
+    //         console.log(error.response.status);
+    //         console.log(error.response.headers);
+    //     }
+    // }
+    // } else {
+    // try {
+    //     const response = await Axios.get("/api/boards", {
+    //         params: {
+    //
     //         },
     //     });
     //     return response.data;
@@ -103,26 +138,29 @@ export const loadPostsList = async (category_id) => {
     //         console.log(error.response.headers);
     //     }
     // }
+    // }
+
     return sampleArray;
 };
 
 export const loadPostsSearchList = async (searchType, text) => {
-    try {
-        const response = await Axios.get("/api/boards", {
-            params: {
-                searchType: searchType,
-                text: text,
-            },
-        });
-        return response.data;
-    } catch (error) {
-        console.log("Error loadPostsSearchList");
-        if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        }
-    }
+    // try {
+    //     const response = await Axios.get("/api/boards", {
+    //         params: {
+    //             searchType: searchType,
+    //             text: text,
+    //         },
+    //     });
+    //     return response.data;
+    // } catch (error) {
+    //     console.log("Error loadPostsSearchList");
+    //     if (error.response) {
+    //         console.log(error.response.data);
+    //         console.log(error.response.status);
+    //         console.log(error.response.headers);
+    //     }
+    // }
+    return sampleArray;
 };
 
 export const updatePosts = async (updateData) => {

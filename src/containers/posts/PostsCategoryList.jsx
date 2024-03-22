@@ -7,18 +7,18 @@ const PostsCategoryList = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const categoryId = queryParams.get("category_id");
-    const [listData, setListData] = useState();
+    const [listData, setListData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         async function loadPostListData() {
-            const response = await loadPostsList(categoryId);
+            const response = await loadPostsList({ categoryId: categoryId });
             setListData(response);
         }
         loadPostListData();
     }, [categoryId]);
 
     useEffect(() => {
-        if (!!listData) {
+        if (listData.length !== 0) {
             setIsLoading(true);
         }
     }, [listData]);

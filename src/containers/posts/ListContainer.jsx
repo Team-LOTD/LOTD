@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 
 import { Viewer } from "@toast-ui/react-editor";
@@ -13,6 +13,7 @@ import PostsProfileNickname from "../../styles/components/posts/view/PostsProfil
 import Duration from "./Duration";
 import PostsIcon from "../../styles/components/posts/view/PostsIcon";
 import PostsCount from "../../styles/components/posts/view/PostsCount";
+import { useEffect, useState } from "react";
 
 const StyleItemBox = styled.div`
     width: 610px;
@@ -63,71 +64,114 @@ const StyleItemImg = styled.img`
 `;
 
 const ListContainer = ({ item }) => {
+    const { categoryItem } = useOutletContext();
+    const [isLoading, setIsLoading] = useState(false);
+    const [categoryTextList, setCategoryTextList] = useState({});
+
     const categoryText = (categoryId) => {
-        const messages = {
-            1: "자유게시판",
-            2: "OOTD",
-            3: "패션",
-        };
-        return messages[categoryId];
+        return categoryTextList[categoryId];
     };
-    console.log(item);
+
+    useEffect(() => {
+        console.log(categoryItem);
+        if (categoryItem.length !== 0) {
+            const updatedCategoryText = {};
+            categoryItem.forEach((item) => {
+                updatedCategoryText[item.categoryId] = item.categoryName;
+            });
+            setCategoryTextList(updatedCategoryText);
+        }
+    }, [categoryItem]);
+
+    useEffect(() => {
+        console.log(item.categoryId);
+        if (!!item) setIsLoading(true);
+    }, [item]);
+
     return (
-        <StyleItemBox>
-            <Link
-                to={`/posts?post_id=${item.postId}&category_id=${item.categoryId}`}
-            >
-                <StyleContentBox>
-                    <StyleSpan>{categoryText(item.categoryId)}</StyleSpan>
-                    <StyleTitle>{item.title}</StyleTitle>
-                </StyleContentBox>
-                <div style={{ minHeight: "80px" }}>
-                    <Viewer
-                        initialValue={item.content}
-                        plugin={[colorSyntax]}
-                    />
-                </div>
-                <StyleItemImg
-                    src={process.env.PUBLIC_URL + "/images/profile-sample.jpg"}
-                    alt="ContentImg"
-                />
-                <PostsDataBox style={{ marginBottom: "32px" }}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <PostsProfileImg
-                            src={process.env.PUBLIC_URL + "/images/profile.png"}
-                            alt="ProfileImg"
-                        />
-                        <PostsProfileNickname>
-                            {item.nickname}
-                        </PostsProfileNickname>
-                        <Duration date={item.createdDate} />
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <PostsIcon
+        <>
+            {isLoading ? (
+                <StyleItemBox>
+                    <Link
+                        to={`/posts?post_id=${item.postId}&category_id=${item.categoryId}`}
+                    >
+                        <StyleContentBox>
+                            <StyleSpan>
+                                {categoryText(item.categoryId)}
+                            </StyleSpan>
+                            <StyleTitle>{item.title}</StyleTitle>
+                        </StyleContentBox>
+                        <div style={{ minHeight: "80px" }}>
+                            <Viewer
+                                initialValue={item.content}
+                                plugin={[colorSyntax]}
+                            />
+                        </div>
+                        <StyleItemImg
                             src={
                                 process.env.PUBLIC_URL +
-                                "/images/visibility.png"
+                                "/images/profile-sample.jpg"
                             }
-                            alt="ViewCount"
-                            style={{ margin: 0, marginLeft: "12px" }}
+                            alt="ContentImg"
                         />
-                        <PostsCount>{item.hits}</PostsCount>
-                        <PostsIcon
-                            src={process.env.PUBLIC_URL + "/images/heart.png"}
-                            alt="CountLike"
-                            style={{ margin: 0, marginLeft: "12px" }}
-                        />
-                        <PostsCount>{item.likeCount}</PostsCount>
-                        <PostsIcon
-                            src={process.env.PUBLIC_URL + "/images/message.png"}
-                            alt="CountMessage"
-                            style={{ margin: 0, marginLeft: "12px" }}
-                        />
-                        <PostsCount>{item.commentsCount}</PostsCount>
-                    </div>
-                </PostsDataBox>
-            </Link>
-        </StyleItemBox>
+                        <PostsDataBox style={{ marginBottom: "32px" }}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <PostsProfileImg
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/profile.png"
+                                    }
+                                    alt="ProfileImg"
+                                />
+                                <PostsProfileNickname>
+                                    {item.nickname}
+                                </PostsProfileNickname>
+                                <Duration date={item.createdDate} />
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <PostsIcon
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/visibility.png"
+                                    }
+                                    alt="ViewCount"
+                                    style={{ margin: 0, marginLeft: "12px" }}
+                                />
+                                <PostsCount>{item.hits}</PostsCount>
+                                <PostsIcon
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/heart.png"
+                                    }
+                                    alt="CountLike"
+                                    style={{ margin: 0, marginLeft: "12px" }}
+                                />
+                                <PostsCount>{item.likeCount}</PostsCount>
+                                <PostsIcon
+                                    src={
+                                        process.env.PUBLIC_URL +
+                                        "/images/message.png"
+                                    }
+                                    alt="CountMessage"
+                                    style={{ margin: 0, marginLeft: "12px" }}
+                                />
+                                <PostsCount>{item.commentsCount}</PostsCount>
+                            </div>
+                        </PostsDataBox>
+                    </Link>
+                </StyleItemBox>
+            ) : null}
+        </>
     );
 };
 

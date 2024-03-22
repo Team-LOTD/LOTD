@@ -1,5 +1,5 @@
 function NotFound() {
-    return <h1>asdfw</h1>;
+    return <h1>404페이지</h1>;
 }
 
 export default NotFound;
