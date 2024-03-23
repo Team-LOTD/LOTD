@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledListTitle = styled.p`
+const StyledPostsListTitle = styled.p`
     height: 28px;
     font-family: Pretendard;
     font-size: 24px;
@@ -11,12 +11,12 @@ const StyledListTitle = styled.p`
     margin-bottom: 48px;
 `;
 
-const ListTitle = (props) => {
+const PostsListTitle = (props) => {
     return (
-        <StyledListTitle className={props.className}>
+        <StyledPostsListTitle className={props.className}>
             {props.children}
-        </StyledListTitle>
+        </StyledPostsListTitle>
     );
 };
 
-export default ListTitle;
+export default PostsListTitle;

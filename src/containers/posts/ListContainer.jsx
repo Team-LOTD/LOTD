@@ -29,7 +29,7 @@ const StyleContentBox = styled.div`
 `;
 
 const StyleSpan = styled.span`
-    width: 66px;
+    width: 80px;
     height: 22px;
     border-radius: 2px;
     border: 1px solid #e7e8e9;
@@ -64,16 +64,16 @@ const StyleItemImg = styled.img`
 `;
 
 const ListContainer = ({ item }) => {
-    const { categoryItem } = useOutletContext();
     const [isLoading, setIsLoading] = useState(false);
     const [categoryTextList, setCategoryTextList] = useState({});
+
+    const { categoryItem } = useOutletContext();
 
     const categoryText = (categoryId) => {
         return categoryTextList[categoryId];
     };
 
     useEffect(() => {
-        console.log(categoryItem);
         if (categoryItem.length !== 0) {
             const updatedCategoryText = {};
             categoryItem.forEach((item) => {

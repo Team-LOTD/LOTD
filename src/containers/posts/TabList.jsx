@@ -85,7 +85,7 @@ const TabList = ({ menuItem, defaultValue, text }) => {
                                             fontSize: "16px",
                                             lineHeight: "19px",
                                             textAlign: "left",
-                                            width: `calc(100% / ${menuItem.length})`,
+                                            width: `calc(610px / ${menuItem.length})`,
                                         }}
                                         key={index}
                                         label={item.name}
@@ -95,14 +95,16 @@ const TabList = ({ menuItem, defaultValue, text }) => {
                             })}
                         </Tabs>
                     </Box>
-                    {listItem.map((item, index) => {
-                        return (
-                            <ListContainer
-                                key={index}
-                                item={item}
-                            ></ListContainer>
-                        );
-                    })}
+                    {listItem.length !== 0
+                        ? listItem.map((item, index) => {
+                              return (
+                                  <ListContainer
+                                      key={index}
+                                      item={item}
+                                  ></ListContainer>
+                              );
+                          })
+                        : null}
                 </>
             ) : null}
         </>
