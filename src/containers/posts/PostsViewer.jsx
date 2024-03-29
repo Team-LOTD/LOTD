@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useLocation, useOutletContext } from "react-router-dom";
 
 import { Viewer } from "@toast-ui/react-editor";
@@ -27,7 +27,7 @@ import PostsButton from "../../styles/components/posts/PostsButton";
 import { increaseHearts, decreaseHearts } from "../../services/posts/hearts";
 import { getJWTToken } from "../../utils/JWTToken";
 import CommentList from "./CommentList";
-import { saveComment } from "../../services/posts/comment";
+import { handleSubmitComment } from "../../utils/saveComment";
 
 const UpdateButton = styled(PostsButton)`
     width: 100px !important;
@@ -189,20 +189,6 @@ const PostsViewer = () => {
         }
     };
 
-    const handleSubmitComment = async () => {
-        const response = await saveComment(
-            null,
-            commentValue,
-            postValue.postId,
-            memberId
-        );
-        if (response) {
-            window.location.reload();
-        } else {
-            alert("서버와 연결할 수 없습니다. 잠시후 이용해주세요.");
-        }
-    };
-
     return (
         <>
             <div style={{ width: "860px", margin: "36px auto" }}>
@@ -348,9 +334,23 @@ const PostsViewer = () => {
                         marginTop: "16px",
                     }}
                 >
-                    <Button onClick={handleSubmitComment}>댓글 등록</Button>
+                    <Button
+                        onClick={() =>
+                            handleSubmitComment({
+                                content: commentValue,
+                                postId: postId,
+                                memberId: memberId,
+                                parentCommentId: null,
+                            })
+                        }
+                    >
+                        댓글 등록
+                    </Button>
                 </div>
-                <CommentList commentList={postValue.commentList}></CommentList>
+                <CommentList
+                    commentList={postValue.commentList}
+                    postId={postValue.postId}
+                ></CommentList>
             </div>
         </>
     );

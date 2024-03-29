@@ -6,7 +6,7 @@ const StyledSideBar = styled.div`
     width: 140px;
     position: absolute;
     top: 116px;
-    left: 535px;
+    left: 22%;
 `;
 
 const StyledMessage = styled.p`

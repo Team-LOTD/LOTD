@@ -14,6 +14,7 @@ import Duration from "./Duration";
 import PostsIcon from "../../styles/components/posts/view/PostsIcon";
 import PostsCount from "../../styles/components/posts/view/PostsCount";
 import React, { useEffect, useState, useCallback } from "react";
+import PostsCommentContent from "../../styles/components/posts/PostsCommentContent";
 
 const StyleItemBox = styled.div`
     width: 610px;
@@ -91,6 +92,11 @@ const ListContainer = ({ item }) => {
                         <StyleSpan>{categoryText(item.categoryId)}</StyleSpan>
                         <StyleTitle>{item.title}</StyleTitle>
                     </StyleContentBox>
+                    {!!item.commentContent ? (
+                        <PostsCommentContent>
+                            {item.commentContent}
+                        </PostsCommentContent>
+                    ) : null}
                     <div style={{ minHeight: "80px" }}>
                         <Viewer
                             initialValue={item.content}

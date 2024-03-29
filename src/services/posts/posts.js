@@ -145,7 +145,6 @@ export const loadActivityPostsList = async (value, memberId, page) => {
                 "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
             },
         });
-        console.log(response);
         switch (value) {
             case "posts": {
                 return response.data.postList;
