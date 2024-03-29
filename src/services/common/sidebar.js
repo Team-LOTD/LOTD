@@ -4,12 +4,7 @@ const jwtToken = JSON.parse(localStorage.getItem("jwt"));
 
 export const searchCategories = async () => {
     try {
-        const response = await Axios.get("/api/categories", {
-            headers: {
-                Authorization: `Bearer ${jwtToken.accessToken}`,
-                "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
-            },
-        });
+        const response = await Axios.get("/api/categories");
         return response.data.categoryList;
     } catch (error) {
         console.log("Error getCategories");

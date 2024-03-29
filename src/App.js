@@ -16,6 +16,7 @@ import ViewPost from "./routes/pages/PostsView";
 import PostsSearchResult from "./routes/pages/PostsSearchResult";
 import PrivateRouteGroup from "./routes/auth/PrivateRouteGroup";
 import SideBar from "./components/common/SideBar";
+import MyActivity from "./routes/pages/MyActivity";
 
 function App() {
     return (
@@ -51,6 +52,10 @@ function App() {
                             element={<PostsSearchResult />}
                         />
                         <Route element={<PrivateRouteGroup />}>
+                            <Route
+                                path="/members/activity/:id"
+                                element={<MyActivity />}
+                            />
                             <Route path="/members/:id" element={<MyPage />} />
                             <Route
                                 path="/posts/create"

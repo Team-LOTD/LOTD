@@ -58,8 +58,6 @@ function Header() {
     const [isOpen, setIsOpen] = useDetechClose(dropDownRef, false);
     const [isOpenSearch, setIsOpenSearch] = useDetechClose(slideRef, false);
     const [categoryItem, setCategoryItem] = useState([]);
-
-    const [defaultCategory, setDefaultCategory] = useState(0);
     const [selectCategory, setSelectCategory] = useState(0);
     const [selectSearchType, setSelectSearchType] = useState("");
     const [searchText, setSearchText] = useState("");
@@ -71,7 +69,8 @@ function Header() {
             const jwtToken = await getJWTToken();
             if (!!jwtToken) {
                 if (date.getTime() > jwtToken.accessTokenExpiresIn) {
-                    localStorage.removeItem("jwt");
+                    console.log("jwtAccessToken 기간 만료");
+                    // localStorage.removeItem("jwt");
                 } else {
                     setMemberId(jwtToken.memberId);
                     // 여기다가 service 폴더에서 구현한 자동로그인 로직 load
@@ -84,7 +83,11 @@ function Header() {
             }
 
             const response = await searchCategories();
-            if (!!response) setCategoryItem(response);
+            if (!!response)
+                setCategoryItem([
+                    { categoryId: 0, categoryName: "전체글" },
+                    ...response,
+                ]);
         }
         RememberMe();
 
@@ -96,13 +99,17 @@ function Header() {
             const defaultValue = categoryItem.find(
                 (obj) => obj.categoryName === "전체글"
             )?.categoryId;
-            setDefaultCategory(defaultValue);
+
             setSelectCategory(defaultValue);
         }
     }, [categoryItem]);
 
     const handleChangeCategory = (e) => {
-        setSelectCategory(Number(e.target.value));
+        if (e.target.value !== null) {
+            setSelectCategory(Number(e.target.value));
+        } else {
+            setSelectCategory(e.target.value);
+        }
     };
 
     const handleChangeSearchType = (e) => {
@@ -110,7 +117,6 @@ function Header() {
     };
 
     const handleSearchEvent = () => {
-        console.log(selectSearchType);
         if (searchText === "") {
             alert("검색어를 입력해주세요");
         } else {
@@ -149,8 +155,8 @@ function Header() {
                                                       key={index}
                                                       value={item.categoryId}
                                                       defaultValue={
-                                                          defaultCategory ===
-                                                          item.categoryId
+                                                          item.categoryId ===
+                                                          null
                                                       }
                                                   >
                                                       {item.categoryName}
@@ -159,7 +165,10 @@ function Header() {
                                           })
                                         : null}
                                 </SelectBox>
-                                <SelectBox onChange={handleChangeSearchType}>
+                                <SelectBox
+                                    onChange={handleChangeSearchType}
+                                    style={{ width: "80px" }}
+                                >
                                     {searchTypeList.map((item, index) => {
                                         return (
                                             <option
@@ -186,6 +195,8 @@ function Header() {
                             </div>
                             <SearchInput
                                 placeholder="검색어를 입력해주세요"
+                                defaultValue={searchText}
+                                maxLength={38}
                                 onChange={(e) => setSearchText(e.target.value)}
                                 onKeyUp={(e) => {
                                     if (e.key === "Enter") {
@@ -215,9 +226,19 @@ function Header() {
                                     ref={dropDownRef}
                                     className={isOpen ? "active" : ""}
                                 >
-                                    <MenuItem>내 활동</MenuItem>
+                                    <Link to={`/members/activity/${memberId}`}>
+                                        <MenuItem
+                                            onClick={() => setIsOpen(!isOpen)}
+                                        >
+                                            내 활동
+                                        </MenuItem>
+                                    </Link>
                                     <Link to={`/members/${memberId}`}>
-                                        <MenuItem>계정 설정</MenuItem>
+                                        <MenuItem
+                                            onClick={() => setIsOpen(!isOpen)}
+                                        >
+                                            계정 설정
+                                        </MenuItem>
                                     </Link>
                                     <MenuItem onClick={logoutUser}>
                                         로그아웃

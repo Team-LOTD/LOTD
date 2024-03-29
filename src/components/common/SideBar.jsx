@@ -1,7 +1,6 @@
 import { Outlet, Link, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { searchCategories } from "../../services/common/sidebar";
+import React, { useEffect, useState } from "react";
 
 const StyledSideBar = styled.div`
     width: 140px;
@@ -86,7 +85,7 @@ const StyledSubMenu = styled.div`
 
 const SideBar = () => {
     const [checkActive, setCheckActive] = useState([]);
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState();
     const [categories, setCategorise] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -180,7 +179,11 @@ const SideBar = () => {
                     </StyledSideBar>
                     <Outlet
                         context={{
-                            tabsItem: categories,
+                            tabsItem: [
+                                { categoryId: 0, categoryName: "전체글" },
+                                ...categories,
+                            ],
+                            categoryItem: categoryItem,
                         }}
                     />
                 </>
@@ -189,4 +192,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default React.memo(SideBar);

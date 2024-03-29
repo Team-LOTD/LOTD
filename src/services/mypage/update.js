@@ -2,7 +2,7 @@ import Axios from "axios";
 
 const jwtToken = JSON.parse(localStorage.getItem("jwt"));
 
-export const searchUser = async () => {
+export const searchUser = async (memberId) => {
     if (!jwtToken) {
         alert("잘못된 접근입니다. 로그인 후 이용해주세요");
         window.location.href = "/login";
@@ -14,9 +14,10 @@ export const searchUser = async () => {
                 "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
             },
             params: {
-                member_id: jwtToken.memberId,
+                member_id: memberId,
             },
         });
+        console.log(response);
         return response.data.data;
     } catch (error) {
         console.log("Error searchUser data");

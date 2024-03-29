@@ -29,6 +29,7 @@ import {
     updateNickname,
     updatePassword,
 } from "../../services/mypage/update";
+import { useParams } from "react-router-dom";
 
 const UpdateProfileEditImg = styled.img`
     width: 17.25px;
@@ -337,6 +338,8 @@ const UpdateUser = () => {
         socialType: "",
     });
 
+    const { id } = useParams();
+
     const handleUpdateUserClick = (item) => {
         setBlur("block");
         setClickItem(item);
@@ -348,7 +351,7 @@ const UpdateUser = () => {
 
     useEffect(() => {
         async function getUserInfo() {
-            const response = await searchUser();
+            const response = await searchUser(id);
             if (response !== null) {
                 setUserInfo((prevState) => {
                     return {

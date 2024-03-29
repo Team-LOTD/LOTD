@@ -1,4 +1,5 @@
 import Axios from "axios";
+import qs from "qs";
 
 const jwtToken = JSON.parse(localStorage.getItem("jwt"));
 
@@ -28,54 +29,20 @@ export const savePosts = async (submitData) => {
     }
 };
 
-const sample = {
-    postId: 1,
-    categoryId: 1,
-    memberId: "asdf1",
-    title: "testTitle",
-    content: "testContent",
-    image: "testImgSrc",
-    commentsCount: 1,
-    likeCount: 2,
-    hits: 3,
-    creator: "string",
-    commentList: [{}],
-    createdDate: "2024-03-15T16:01:44.424Z",
-    nickname: "testNickname",
-};
-
-const sample2 = {
-    postId: 1,
-    categoryId: 2,
-    memberId: "asdf1",
-    title: "testTitle",
-    content: "testContent",
-    image: "testImgSrc",
-    commentsCount: 1,
-    likeCount: 2,
-    hits: 3,
-    creator: "string",
-    commentList: [{}],
-    createdDate: "2024-03-15T16:01:44.424Z",
-    nickname: "testNickname",
-};
-
-const sampleArray = [sample, sample2];
-
-export const loadPosts = async (post_id, category_id) => {
-    console.log(post_id, category_id);
+export const loadPosts = async (
+    post_id,
+    category_id,
+    request_member_id = ""
+) => {
     try {
         const response = await Axios.get("/api/posts", {
             params: {
                 post_id: post_id,
                 category_id: category_id,
-            },
-            headers: {
-                Authorization: `Bearer ${jwtToken.accessToken}`,
-                "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
+                request_member_id:
+                    request_member_id !== "" ? request_member_id : null,
             },
         });
-        console.log(response);
         return response.data;
     } catch (error) {
         console.log("Error viewPosts Data");
@@ -87,84 +54,123 @@ export const loadPosts = async (post_id, category_id) => {
     }
 };
 
-export const loadPostsList = async (data) => {
-    // if (data.categoryId !== undefined) {
-    // try {
-    //     const response = await Axios.get("/api/boards", {
-    //         params: {
-    //             category_id: data.categoryId,
-
-    //         },
-    //     });
-    //     return response.data;
-    // } catch (error) {
-    //     console.log("Error loadPostsList-categoryId");
-    //     if (error.response) {
-    //         console.log(error.response.data);
-    //         console.log(error.response.status);
-    //         console.log(error.response.headers);
-    //     }
-    // }
-    // } else if (data.searchType !== undefined && data.text !== undefined) {
-    //  try {
-    //     const response = await Axios.get("/api/boards", {
-    //         params: {
-    //             search_type: data.searchType,
-    //             text: data.text
-    //         },
-    //     });
-    //     return response.data;
-    // } catch (error) {
-    //     console.log("Error loadPostsList-categoryId");
-    //     if (error.response) {
-    //         console.log(error.response.data);
-    //         console.log(error.response.status);
-    //         console.log(error.response.headers);
-    //     }
-    // }
-    // } else {
-    // try {
-    //     const response = await Axios.get("/api/boards", {
-    //         params: {
-    //
-    //         },
-    //     });
-    //     return response.data;
-    // } catch (error) {
-    //     console.log("Error loadPostsList");
-    //     if (error.response) {
-    //         console.log(error.response.data);
-    //         console.log(error.response.status);
-    //         console.log(error.response.headers);
-    //     }
-    // }
-    // }
-
-    return sampleArray;
+export const loadMainPostsList = async (page, sort = "") => {
+    try {
+        const response = await Axios.get("/api/boards", {
+            params: {
+                page: page,
+                sort: sort,
+            },
+            paramsSerializer: (params) => {
+                const serializedParams = qs.stringify(params, {
+                    arrayFormat: "repeat",
+                });
+                return serializedParams;
+            },
+        });
+        return response.data.getBoardListList;
+    } catch (error) {
+        console.log("Error loadMainPostsList Data");
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+    }
 };
 
-export const loadPostsSearchList = async (searchType, text) => {
-    // try {
-    //     const response = await Axios.get("/api/boards", {
-    //         params: {
-    //             searchType: searchType,
-    //             text: text,
-    //         },
-    //     });
-    //     return response.data;
-    // } catch (error) {
-    //     console.log("Error loadPostsSearchList");
-    //     if (error.response) {
-    //         console.log(error.response.data);
-    //         console.log(error.response.status);
-    //         console.log(error.response.headers);
-    //     }
-    // }
-    return sampleArray;
+export const loadCategoryPostsList = async (category_id, page, sort = "") => {
+    try {
+        const response = await Axios.get("/api/boards", {
+            params: {
+                category_id: category_id,
+                page: page,
+                sort: sort,
+            },
+            paramsSerializer: (params) => {
+                const serializedParams = qs.stringify(params, {
+                    arrayFormat: "repeat",
+                });
+                return serializedParams;
+            },
+        });
+        return response.data.getBoardListList;
+    } catch (error) {
+        console.log("Error loadCategoryPostsList Data");
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+    }
+};
+
+export const loadPostsSearchList = async (
+    categoryId,
+    searchType,
+    text,
+    page
+) => {
+    console.log(categoryId, searchType, text, page);
+    try {
+        const response = await Axios.get("/api/boards", {
+            params: {
+                category_id: categoryId,
+                search_condition: searchType,
+                text: text,
+                page: page,
+            },
+        });
+        console.log(response.data);
+        return response.data.getBoardListList;
+    } catch (error) {
+        console.log("Error loadPostsSearchList");
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+    }
+};
+
+export const loadActivityPostsList = async (value, memberId, page) => {
+    try {
+        const response = await Axios.get(`/api/members/my/${value}`, {
+            params: {
+                member_id: memberId,
+                page: page,
+            },
+            headers: {
+                Authorization: `Bearer ${jwtToken.accessToken}`,
+                "Authorization-refresh": `Bearer ${jwtToken.refreshToken}`,
+            },
+        });
+        console.log(response);
+        switch (value) {
+            case "posts": {
+                return response.data.postList;
+            }
+            case "comments": {
+                return response.data.commentsPostList;
+            }
+            case "hearts": {
+                return response.data.heartPostList;
+            }
+            default: {
+                return "asdf";
+            }
+        }
+    } catch (error) {
+        console.log("Error loadActivityPostsList");
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+    }
 };
 
 export const updatePosts = async (updateData) => {
-    console.log(updateData);
     try {
         const response = await Axios.put("/api/posts", updateData, {
             params: {

@@ -1,42 +1,62 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-
+import PostContext from "../../context/PostContext";
 import ListBox from "../../styles/components/posts/PostsListBox";
 import TabList from "../posts/TabList";
+import { loadMainPostsList } from "../../services/posts/posts";
+import PaginationContainer from "../posts/PaginationContainer";
+import PageContext from "../../context/PageContext";
+import ListContainer from "../posts/ListContainer";
 
 const MainContainer = () => {
-    const { tabsItem } = useOutletContext();
-    const [tabs, setTabs] = useState([]);
-    const [defaultValue, setDefaultValue] = useState();
+    const [value, setValue] = useState(0);
+    const [page, setPage] = useState(1);
+    const [listItem, setListItem] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (tabsItem.length !== 0) {
-            const filterTabs = tabsItem.filter(
-                (item) =>
-                    item.categoryName === "전체글" ||
-                    item.categoryName === "인기글"
+        async function getMainPostsList() {
+            const response = await loadMainPostsList(
+                page - 1,
+                value === "trend" ? ["hits,desc", "commentCount,desc"] : ""
             );
-
-            const reassign = filterTabs.map((item) => {
-                const { categoryId, categoryName, ...rest } = item;
-                return { id: categoryId, name: categoryName, ...rest };
-            });
-
-            setTabs(reassign);
-
-            const filterDefaultValue = tabsItem.find(
-                (obj) => obj.categoryName === "전체글"
-            ).categoryId;
-
-            setDefaultValue(filterDefaultValue);
+            setListItem(response);
         }
-    }, [tabsItem]);
+        getMainPostsList();
+    }, [value, page]);
+
+    useEffect(() => {
+        if (listItem.length !== 0) {
+            setIsLoading(true);
+        }
+    }, [listItem]);
 
     return (
         <>
-            <ListBox>
-                <TabList menuItem={tabs} defaultValue={defaultValue}></TabList>
-            </ListBox>
+            {isLoading ? (
+                <ListBox>
+                    <PostContext.Provider value={{ value, setValue }}>
+                        <TabList
+                            menuItem={[
+                                { id: 0, name: "전체글" },
+                                { id: "trend", name: "인기글" },
+                            ]}
+                        ></TabList>
+                    </PostContext.Provider>
+                    {listItem.map((item, index) => {
+                        return (
+                            <ListContainer
+                                key={index}
+                                item={item}
+                            ></ListContainer>
+                        );
+                    })}
+                    <PageContext.Provider value={{ page, setPage }}>
+                        <PaginationContainer
+                            count={listItem[0].totalPages}
+                        ></PaginationContainer>
+                    </PageContext.Provider>
+                </ListBox>
+            ) : null}
         </>
     );
 };
