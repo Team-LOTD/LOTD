@@ -137,7 +137,7 @@
 - 삭제하기 클릭 시 재확인 후 게시글을 삭제할 수 있습니다.
 </br>
   
-![Community_View](https://github.com/Team-LOTD/LOTD/assets/93576045/fdc4a6f0-6fe6-40a7-ba00-44eec4d88829)
+![Community_View](https://github.com/user-attachments/assets/96c02a3c-1a09-4d12-923f-aadcac6a51f5)
 ![Community_View_작성자](https://github.com/user-attachments/assets/525c5033-2d93-4c27-aac9-241310f56ceb)
 </br>
 
