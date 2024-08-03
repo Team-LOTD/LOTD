@@ -85,29 +85,29 @@
 - KakaoTalk, Naver, Google 각각의 소셜 계정을 이용하여 회원가입 및 로그인을 할 수 있습니다.
 </br>
 
-![Frame 2087325465](https://github.com/Team-LOTD/LOTD/assets/93576045/e9d5b16a-5d9e-4794-a332-d238af461a40)
+![Frame 2087325465](https://github.com/user-attachments/assets/34cde1f2-bbf3-4ad4-af9e-2b8495fa1022)
 </br>
 
 ### 회원가입
 - 회원정보 입력 및 중복 확인을 통해 회원가입을 진행할 수 있습니다.
 </br>
 
-![Join_PC](https://github.com/Team-LOTD/LOTD/assets/93576045/e74d6a5c-aebb-4547-b82d-1bb25c9923a2)
+![Join_PC](https://github.com/user-attachments/assets/b4ff0cdf-2805-47da-b276-d2d92c73dc51)
 </br>
 
 ### 마이페이지 - 계정 설정
 - 로그인 후 마이페이지 - 계정 설정을 통해 회원정보 확인 및 수정을 진행할 수 있습니다.
 </br>
 
-![MyPage_PC](https://github.com/Team-LOTD/LOTD/assets/93576045/4dc0153b-a5fd-4c74-a15b-ce0eae3af3fd)
-![MyPage_PC](https://github.com/Team-LOTD/LOTD/assets/93576045/f89ce2a1-c7a4-492b-a7d0-424be8764c76)
+![MyPage_PC](https://github.com/user-attachments/assets/5ef28b34-3790-4777-947f-cb9872518da5)
+![MyPage_PC](https://github.com/user-attachments/assets/c3a0804a-af33-493a-b882-c2469c0e6b8a)
 </br>
 
 ### 마이페이지 - 내 활동
 - 로그인 후 마이페이지 - 내 활동을 통해 내 커뮤니티 활동 내역을 확인할 수 있습니다.
 </br>
 
-![Community_List](https://github.com/Team-LOTD/LOTD/assets/93576045/2bb5c2ab-ebc4-4b54-b02d-528e3cd0834a)
+![Community_List](https://github.com/user-attachments/assets/5bd0ad52-4204-4465-bdb1-2658fae02de8)
 </br>
 
 ### 메인페이지
@@ -118,14 +118,14 @@
 - 돋보기 클릭 후 키워드 입력 시 검색 페이지로 이동할 수 있습니다.
 </br>
 
-![Community_List](https://github.com/Team-LOTD/LOTD/assets/93576045/4592f022-761b-424d-a92b-3db3cf0f450c)
+![Community_List](https://github.com/user-attachments/assets/f18ba597-14c2-4008-8048-166c5d5eae17)
 </br>
 
 ### 게시글 - 게시글 작성
 - 게시판(카테고리), 제목, 내용 입력 후 등록하기 클릭 시 해당 게시글이 저장되고 게시글 조회 페이지로 이동할 수 있습니다.
 </br>
 
-![Community_Edit](https://github.com/Team-LOTD/LOTD/assets/93576045/270ec622-90a8-4f7d-80e3-bafff36c73f7)
+![Community_Edit](https://github.com/user-attachments/assets/ec2b46d3-8da4-463c-acba-05689def8599)
 </br>
 
 ### 게시글 - 게시글 조회
