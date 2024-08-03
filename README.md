@@ -138,14 +138,14 @@
 </br>
   
 ![Community_View](https://github.com/Team-LOTD/LOTD/assets/93576045/fdc4a6f0-6fe6-40a7-ba00-44eec4d88829)
-![Community_View_작성자](https://github.com/Team-LOTD/LOTD/assets/93576045/ea167192-7fd3-4358-abe8-b285bf368fa3)
+![Community_View_작성자](https://github.com/user-attachments/assets/525c5033-2d93-4c27-aac9-241310f56ceb)
 </br>
 
 ### 게시글 - 게시글 검색
 - 입력된 키워드를 바탕으로 검색 결과 목록을 조회할 수 있습니다.
 </br>
 
-![Search_List](https://github.com/Team-LOTD/LOTD/assets/93576045/bda6e80c-86fa-455d-950d-e6b8ad097162)
+![Search_List](https://github.com/user-attachments/assets/cef6bd9e-150d-4fd2-8754-3aad8e690e2b)
 </br>
 
 ## 👥 협업 관리
